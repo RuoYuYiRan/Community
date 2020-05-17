@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.VehicleMapper">
+    
+    <resultMap type="Vehicle" id="VehicleResult">
+        <result property="id"    column="id"    />
+        <result property="cellId"    column="cell_id"    />
+        <result property="vehicleNum"    column="vehicle_num"    />
+        <result property="parkingNum"    column="parking_num"    />
+        <result property="parkingCardNum"    column="parking_card_num"    />
+        <result property="vehicleOwner"    column="vehicle_owner"    />
+        <result property="tellPhone"    column="tell_phone"    />
+        <result property="carNum"    column="car_num"    />
+        <result property="vehicleDisplacement"    column="vehicle_displacement"    />
+        <result property="userId"    column="user_id"    />
+    </resultMap>
+
+    <sql id="selectVehicleVo">
+        select id, cell_id, vehicle_num, parking_num, parking_card_num, vehicle_owner, tell_phone, car_num, vehicle_displacement, user_id from vehicle
+    </sql>
+
+    <select id="selectVehicleList" parameterType="Vehicle" resultMap="VehicleResult">
+        <include refid="selectVehicleVo"/>
+        <where>  
+            <if test="cellId != null "> and cell_id = #{cellId}</if>
+            <if test="vehicleNum != null "> and vehicle_num = #{vehicleNum}</if>
+            <if test="parkingNum != null  and parkingNum != ''"> and parking_num = #{parkingNum}</if>
+            <if test="parkingCardNum != null  and parkingCardNum != ''"> and parking_card_num = #{parkingCardNum}</if>
+            <if test="vehicleOwner != null  and vehicleOwner != ''"> and vehicle_owner = #{vehicleOwner}</if>
+            <if test="tellPhone != null  and tellPhone != ''"> and tell_phone = #{tellPhone}</if>
+            <if test="carNum != null  and carNum != ''"> and car_num = #{carNum}</if>
+            <if test="vehicleDisplacement != null  and vehicleDisplacement != ''"> and vehicle_displacement = #{vehicleDisplacement}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+        </where>
+    </select>
+    
+    <select id="selectVehicleById" parameterType="Integer" resultMap="VehicleResult">
+        <include refid="selectVehicleVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertVehicle" parameterType="Vehicle" useGeneratedKeys="true" keyProperty="id">
+        insert into vehicle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cellId != null ">cell_id,</if>
+            <if test="vehicleNum != null ">vehicle_num,</if>
+            <if test="parkingNum != null  and parkingNum != ''">parking_num,</if>
+            <if test="parkingCardNum != null  and parkingCardNum != ''">parking_card_num,</if>
+            <if test="vehicleOwner != null  and vehicleOwner != ''">vehicle_owner,</if>
+            <if test="tellPhone != null and tellPhone != ''">tell_phone,</if>
+            <if test="carNum != null  and carNum != ''">car_num,</if>
+            <if test="vehicleDisplacement != null  and vehicleDisplacement != ''">vehicle_displacement,</if>
+            <if test="userId != null ">user_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cellId != null ">#{cellId},</if>
+            <if test="vehicleNum != null ">#{vehicleNum},</if>
+            <if test="parkingNum != null  and parkingNum != ''">#{parkingNum},</if>
+            <if test="parkingCardNum != null  and parkingCardNum != ''">#{parkingCardNum},</if>
+            <if test="vehicleOwner != null  and vehicleOwner != ''">#{vehicleOwner},</if>
+            <if test="tellPhone != null and tellPhone != ''">#{tellPhone},</if>
+            <if test="carNum != null  and carNum != ''">#{carNum},</if>
+            <if test="vehicleDisplacement != null  and vehicleDisplacement != ''">#{vehicleDisplacement},</if>
+            <if test="userId != null ">#{userId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVehicle" parameterType="Vehicle">
+        update vehicle
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cellId != null ">cell_id = #{cellId},</if>
+            <if test="vehicleNum != null ">vehicle_num = #{vehicleNum},</if>
+            <if test="parkingNum != null  and parkingNum != ''">parking_num = #{parkingNum},</if>
+            <if test="parkingCardNum != null  and parkingCardNum != ''">parking_card_num = #{parkingCardNum},</if>
+            <if test="vehicleOwner != null  and vehicleOwner != ''">vehicle_owner = #{vehicleOwner},</if>
+            <if test="tellPhone != null and tellPhone != ''">tell_phone = #{tellPhone},</if>
+            <if test="carNum != null  and carNum != ''">car_num = #{carNum},</if>
+            <if test="vehicleDisplacement != null  and vehicleDisplacement != ''">vehicle_displacement = #{vehicleDisplacement},</if>
+            <if test="userId != null ">user_id = #{userId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteVehicleById" parameterType="Integer">
+        delete from vehicle where id = #{id}
+    </delete>
+
+    <delete id="deleteVehicleByIds" parameterType="String">
+        delete from vehicle where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

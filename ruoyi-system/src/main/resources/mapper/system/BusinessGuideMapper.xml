@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BusinessGuideMapper">
+    
+    <resultMap type="BusinessGuide" id="BusinessGuideResult">
+        <result property="id"    column="id"    />
+        <result property="isStart"    column="is_start"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="content"    column="content"    />
+        <result property="remake"    column="remake"    />
+    </resultMap>
+
+    <sql id="selectBusinessGuideVo">
+        select id, is_start, create_date, content, remake from business_guide
+    </sql>
+
+    <select id="selectBusinessGuideList" parameterType="BusinessGuide" resultMap="BusinessGuideResult">
+        <include refid="selectBusinessGuideVo"/>
+        <where>  
+            <if test="isStart != null  and isStart != ''"> and is_start = #{isStart}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="remake != null  and remake != ''"> and remake = #{remake}</if>
+        </where>
+    </select>
+    
+    <select id="selectBusinessGuideById" parameterType="Integer" resultMap="BusinessGuideResult">
+        <include refid="selectBusinessGuideVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBusinessGuide" parameterType="BusinessGuide" useGeneratedKeys="true" keyProperty="id">
+        insert into business_guide
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="isStart != null  and isStart != ''">is_start,</if>
+            <if test="content != null  and content != ''">content,</if>
+            <if test="remake != null  and remake != ''">remake,</if>
+            create_date
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="isStart != null  and isStart != ''">#{isStart},</if>
+            <if test="content != null  and content != ''">#{content},</if>
+            <if test="remake != null  and remake != ''">#{remake},</if>
+            sysdate()
+         </trim>
+    </insert>
+
+    <update id="updateBusinessGuide" parameterType="BusinessGuide">
+        update business_guide
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="isStart != null  and isStart != ''">is_start = #{isStart},</if>
+            <if test="content != null  and content != ''">content = #{content},</if>
+            <if test="remake != null  and remake != ''">remake = #{remake},</if>
+            create_date = sysdate()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBusinessGuideById" parameterType="Integer">
+        delete from business_guide where id = #{id}
+    </delete>
+
+    <delete id="deleteBusinessGuideByIds" parameterType="String">
+        delete from business_guide where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

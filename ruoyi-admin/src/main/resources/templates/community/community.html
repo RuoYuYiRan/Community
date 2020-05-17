@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="keywords" content="Bootstrap, Parallax, Template, Registration, Landing">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>社区服务 - 管理平台系统</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" th:href="@{/community/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/community/css/font-awesome.min.css}">
+  <link rel="stylesheet" th:href="@{/community/css/line-icons.css}">
+  <link rel="stylesheet" th:href="@{/community/css/owl.carousel.css}">
+  <link rel="stylesheet" th:href="@{/community/css/owl.theme.css}">
+  <link rel="stylesheet" th:href="@{/community/css/nivo-lightbox.css}">
+  <link rel="stylesheet" th:href="@{/community/css/magnific-popup.css}">
+  <link rel="stylesheet" th:href="@{/community/css/slicknav.css}">
+  <link rel="stylesheet" th:href="@{/community/css/animate.css}">
+  <link rel="stylesheet" th:href="@{/community/css/main.css}">
+  <link rel="stylesheet" th:href="@{/community/css/responsive.css}">
+  <style>
+    /*滚动新闻*/
+    .zxgg{width: 1170px; margin: 10px auto auto auto; background:url(img/notice.png) no-repeat #fcfcfc; padding-left: 0px;}
+    .BreakingNewsController{width:100%;overflow:hidden;height:auto;position:relative; height: 35px;}
+    .BreakingNewsController .bn-title{display:inline-block;float:left;padding:0 20px; line-height: 35px;}
+    .BreakingNewsController ul{padding:0;margin:0;display:block;list-style:none;position:absolute;left:180px;right:50px;}
+    .BreakingNewsController ul li{list-style:none;padding:0 20px;display:none; height: 35px;}
+    .BreakingNewsController ul li a{text-decoration:none;color:#333;display:inline-block;overflow:hidden;padding:0; line-height: 35px;}
+    .BreakingNewsController .bn-arrows{display:inline-block;float:right;width:50px;position:absolute;right:0;top:0;bottom:0;}
+    .BreakingNewsController .bn-arrows span{display:block;width:20px;position:absolute;top:0;bottom:0;cursor:pointer;opacity:0.2;}
+    .BreakingNewsController .bn-arrows span:hover{opacity:1;}
+    .BreakingNewsController .bn-arrows-left{ left:0;background:url(../images/bn-arrows.png) left center no-repeat;}
+    .BreakingNewsController .bn-arrows-right{right:10px;background:url(../images/bn-arrows.png) right center no-repeat;}
+    .easing a, .easing span{transition:.25s linear;-moz-transition:.25s linear;-webkit-transition:.25s linear;}
+  </style>
+</head>
+<body>
+
+<!-- Header Section Start -->
+<header id="hero-area" data-stellar-background-ratio="0.5">
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand-lg fixed-top scrolling-navbar indigo">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a href="index.html" class="navbar-brand"><img class="img-fulid" src="img/logo3.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="lnr lnr-menu"></i>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="main-navbar">
+        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="#hero-area"  >首页</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="#blog">通知公告</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="#services">社区查询</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="#features">办事指南</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="#portfolios">报修投诉</a>
+          </li>
+          <!--              <li class="nav-item">-->
+          <!--                <a class="nav-link page-scroll" href="#pricing">Pricing</a>-->
+          <!--              </li>-->
+          <!--              <li class="nav-item">-->
+          <!--                <a class="nav-link page-scroll" href="#team">Team</a>-->
+          <!--              </li>-->
+
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="#contact">联系我</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="/login">登录</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar End -->
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-10">
+        <div class="contents text-center">
+          <h1 class="wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="0.3s">社区服务 - 管理平台系统</h1>
+          <p class="lead  wow fadeIn" data-wow-duration="1000ms" data-wow-delay="400ms">Community service management platform system </p>
+          <a href="#" class="btn btn-common wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">come</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Header Section End -->
+<!-- Blog Section -->
+<section id="blog" class="section">
+  <!-- Container Starts -->
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">最新 公告</h2>
+      <hr class="lines">
+      <div class="zxgg">
+        <div class="BreakingNewsController easing" id="breakingnews2">
+          <div class="bn-title"></div>
+          <ul id="abc">
+            <li th:each="notice : ${noticeList}">
+              <a th:text="${notice.noticeTitle}"></a><a>：</a><a href="#" th:text="${notice.noticeContent}"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="notice" class="row">
+
+    </div>
+  </div>
+</section>
+<!-- blog Section End -->
+
+<!-- Services Section Start -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">信息 查询</h2>
+      <hr class="lines wow zoomIn" data-wow-delay="0.3s">
+      <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">居民可以通过连接查询相关信息<br> Lorem ipsum dolor sit amet, consectetur.</p>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6">
+        <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+          <div class="icon">
+            <i class="lnr lnr-history"></i>
+          </div>
+          <h4>社区简介</h4>
+          <p></p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+          <div class="icon">
+            <i class="lnr lnr-earth"></i>
+          </div>
+          <h4>环境信息</h4>
+          <p></p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+          <div class="icon">
+            <i class="lnr lnr-car"></i>
+          </div>
+          <h4>车辆违章</h4>
+          <p></p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="item-boxes wow fadeInDown" data-wow-delay="0.2s">
+          <div class="icon">
+            <i class="lnr lnr-heart-pulse"></i>
+          </div>
+          <h4>健康管理</h4>
+          <p></p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="item-boxes wow fadeInDown" data-wow-delay="0.8s">
+          <div class="icon">
+            <i class="lnr lnr-map"></i>
+          </div>
+          <h4>社区导航</h4>
+          <p></p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <div class="item-boxes wow fadeInDown" data-wow-delay="1.2s">
+          <div class="icon">
+            <i class="lnr lnr-alarm"></i>
+          </div>
+          <h4>紧急上报</h4>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Services Section End -->
+
+<!-- Features Section Start -->
+<section id="features" class="section" data-stellar-background-ratio="0.2">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" style="color: #0b0b0b">办事 指南</h2>
+      <hr class="lines">
+      <p class="section-subtitle" style="color: #0b0b0b">社区相关服务办事指导 <br> Lorem ipsum dolor sit amet, consectetur.</p>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 col-md-12 col-xs-12">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12 box-item">
+              <div id="businessGuide" class="text" style="color: #0b0b0b">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-xs-12">
+        <div class="show-box">
+          <img class="img-fulid" src="img/features/feature.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Features Section End -->
+<div class="tlinks">Collect from <a href="http://www.cssmoban.com/"  title="网站模板">网站模板</a></div>
+
+<!-- Portfolio Section -->
+<section id="portfolios" class="section">
+  <!-- Container Starts -->
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">报修 投诉</h2>
+      <hr class="lines">
+      <p class="section-subtitle">社区公告设施的保修以及相关投诉<br> Lorem ipsum dolor sit amet, consectetur.</p>
+    </div>
+    <div class="row" style="width: 100%;">
+      <div class="col-md-12">
+        <!-- Portfolio Controller/Buttons -->
+        <div class="controls text-center">
+          <ul class="title" style="overflow: hidden;margin-left: 40%;">
+            <li style="float:left"><a class="filter active btn btn-common" data-filter=".warranty" >报修</a></li>
+            <li style="float:left"><a class="filter btn btn-common" data-filter=".complain" data-target="#myModal">投诉</a></li>
+          </ul>
+
+        </div>
+        <!-- Portfolio Controller/Buttons Ends-->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Portfolio Section Ends -->
+<!-- Start Video promo Section -->
+<section class="video-promo section" id="content">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="video-promo-content text-center">
+          <form id="addWarranty">
+            <h2 class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">填写保修单</h2>
+            <p class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">Aliquam vestibulum cursus felis. In iaculis iaculis sapien ac condimentum. Vestibulum congue posuere lacus, id tincidunt nisi porta sit amet. Suspendisse et sapien varius, pellentesque dui non, semper orci.</p>
+            <p>
+              <select name="cellId" style="width: 100%;height:45px;outline: none;border: 1px solid #F1F1F1;background-color: #61D2B4;color: white;">
+                <option value="">请选择小区</option>
+                <option th:each="residentialQuarters : ${residentialQuartersList}" th:value="${residentialQuarters.id}" th:text="${residentialQuarters.cellName}"></option>
+                  </select>
+                </p>
+                <p>
+                  <select name="buildId" style="width: 100%;height:45px;outline: none;border: 1px solid #F1F1F1;background-color: #61D2B4;color: white;">
+                <option value="">请选择楼宇</option>
+                <option th:each="building : ${buildingList}" th:value="${building.id}" th:text="${building.buildName}"></option>
+              </select>
+            </p>
+            <p>
+              <select name="houseId" style="width: 100%;height:45px;outline: none;border: 1px solid #F1F1F1;background-color: #61D2B4;color: white;">
+                <option value="">请选择单元</option>
+                <option th:each="house : ${houseList}" th:value="${house.id}" th:text="${house.roomNum}"></option>
+              </select>
+            </p>
+            <p><input type="text" class="form-control" name="address" placeholder="填写详细地址" required data-error="Please enter your address"></p>
+            <p><input type="text" class="form-control" id="tellWarranty" name="tellPhone" placeholder="联系电话" required data-error="Please enter your tellphone"></p>
+            <div class="col-md-12">
+              <div class="form-group">
+                <textarea class="form-control" name="warrantyInstructions" placeholder="报修描述" rows="8" data-error="Write your warrantyInstructions" required></textarea>
+                <div class="help-block with-errors"></div>
+              </div>
+              <p><input type="text" class="form-control" name="remake" placeholder="备注" required data-error="Please enter your remark"></p>
+              <p><button class="btn btn-common" onclick="addWarranty()" type="button" style="background-color: #00a65a">提交</button></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="container" style="display: none;">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="video-promo-content text-center">
+          <form id="addComplaint">
+            <h2 class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">填写投诉表</h2>
+            <p class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">Aliquam vestibulum cursus felis. In iaculis iaculis sapien ac condimentum. Vestibulum congue posuere lacus, id tincidunt nisi porta sit amet. Suspendisse et sapien varius, pellentesque dui non, semper orci.</p>
+            <p>
+              <select name="cellId" style="width: 100%;height:45px;outline: none;border: 1px solid #F1F1F1;background-color: #61D2B4;color: white;">
+                <option value="">请选择小区</option>
+                <option th:each="residentialQuarters : ${residentialQuartersList}" th:value="${residentialQuarters.id}" th:text="${residentialQuarters.cellName}"></option>
+                  </select>
+                </p>
+                <p>
+                  <select name="buildId" style="width: 100%;height:45px;outline: none;border: 1px solid #F1F1F1;background-color: #61D2B4;color: white;">
+                <option value="">请选择楼宇</option>
+                <option th:each="building : ${buildingList}" th:value="${building.id}" th:text="${building.buildName}"></option>
+              </select>
+            </p>
+            <p>
+              <select name="houseId" style="width: 100%;height:45px;outline: none;border: 1px solid #F1F1F1;background-color: #61D2B4;color: white;">
+                <option value="">请选择单元</option>
+                <option th:each="house : ${houseList}" th:value="${house.id}" th:text="${house.unitNum}"></option>
+              </select>
+            </p>
+            <p><input type="text" class="form-control" name="address" placeholder="填写详细地址" required data-error="Please enter your address"></p>
+            <p><input type="text" class="form-control" id="tellComplaint" name="tellPhone" placeholder="联系电话" required data-error="Please enter your tellphone"></p>
+            <div class="col-md-12">
+              <div class="form-group">
+                <textarea class="form-control" name="complaintInstructions" placeholder="投诉详情" rows="8" data-error="Write your complaintInstructions" required></textarea>
+                <div class="help-block with-errors"></div>
+              </div>
+              <p><input type="text" class="form-control" name="remake" placeholder="备注" required data-error="Please enter your remark"></p>
+              <p><button class="btn btn-common" onclick="addComplaint()" type="button" style="background-color: #00a65a">提交</button></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Video Promo Section -->
+<!-- Contact Section Start -->
+<section id="contact" class="section" data-stellar-background-ratio="-0.2">
+  <div class="contact-form">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+          <div class="contact-us">
+            <h3>Contact With us</h3>
+            <div class="contact-address">
+              <p>Centerville Road, DE 19808, US </p>
+              <p class="phone">Phone: <span>(+94 123 456 789)</span></p>
+              <p class="email">E-mail: <span>(contact@mate.com)</span></p>
+            </div>
+            <div class="social-icons">
+              <ul>
+                <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li class="dribbble"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+          <div class="contact-block">
+            <form id="contactForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required data-error="Please enter your name">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input type="text" placeholder="Your Email" id="email" class="form-control" name="name" required data-error="Please enter your email">
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <textarea class="form-control" id="message" placeholder="Your Message" rows="8" data-error="Write your message" required></textarea>
+                    <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="submit-button text-center">
+                    <button class="btn btn-common" id="submit" type="submit">Send Message</button>
+                    <div id="msgSubmit" class="h3 text-center hidden"></div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Contact Section End -->
+
+<!-- Footer Section Start -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <!-- Footer Links -->
+      <div class="col-lg-6 col-sm-6 col-xs-12">
+        <ul class="footer-links">
+          <li>
+            <a href="#">Homepage</a>
+          </li>
+          <li>
+            <a href="#">Services</a>
+          </li>
+          <li>
+            <a href="#">About Us</a>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-6 col-sm-6 col-xs-12">
+        <div class="copyright">
+          <!--              <p>UIdeck All copyrights reserved &copy; 2018 - Designed & Developed. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Go To Top Link -->
+<a href="#" class="back-to-top">
+  <i class="lnr lnr-arrow-up"></i>
+</a>
+
+<div id="loader">
+  <div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+</div>
+
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script th:src="@{community/js/jquery-min.js}"></script>
+<script th:src="@{community/js/popper.min.js}"></script>
+<script th:src="@{community/js/bootstrap.min.js}"></script>
+<script th:src="@{community/js/jquery.mixitup.js}"></script>
+<script th:src="@{community/js/nivo-lightbox.js}"></script>
+<script th:src="@{community/js/owl.carousel.js}"></script>
+<script th:src="@{community/js/jquery.stellar.min.js}"></script>
+<script th:src="@{community/js/jquery.nav.js}"></script>
+<script th:src="@{community/js/scrolling-nav.js}"></script>
+<script th:src="@{community/js/jquery.easing.min.js}"></script>
+<script th:src="@{community/js/smoothscroll.js}"></script>
+<script th:src="@{community/js/jquery.slicknav.js}"></script>
+<script th:src="@{community/js/wow.js}"></script>
+<script th:src="@{community/js/jquery.vide.js}"></script>
+<script th:src="@{community/js/jquery.counterup.min.js}"></script>
+<script th:src="@{community/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{community/js/waypoints.min.js}"></script>
+<script th:src="@{community/js/form-validator.min.js}"></script>
+<script th:src="@{community/js/contact-form-script.js}"></script>
+<script th:src="@{community/js/main.js}"></script>
+<!--    最新公告滚动实现-->
+<script type="text/javascript">
+  (function(jQuery){
+
+    $.fn.BreakingNews = function(settings){
+      var defaults={
+        background		:'#fcfcfc',
+        title			:'NEWS',
+        titlecolor		:'#b61412',
+        titlebgcolor	:'#fcfcfc',
+        linkcolor		:'#333',
+        linkhovercolor	:'#b61412',
+        fonttextsize	:14,
+        isbold			:false,
+        border			:'none',
+        width			:'100%',
+        autoplay		:true,
+        timer			:3000,
+        modulid			:'brekingnews',
+        effect			:'fade'	//or slide
+      };
+      var settings=$.extend(defaults,settings);
+
+      return this.each(function(){
+        settings.modulid="#"+$(this).attr("id");
+        var timername=settings.modulid;
+        var activenewsid=1;
+
+        if (settings.isbold==true)
+          fontw='bold';
+        else
+          fontw='normal';
+
+        if (settings.effect=='slide')
+          $(settings.modulid+' ul li').css({'display':'block'});
+        else
+          $(settings.modulid+' ul li').css({'display':'none'});
+
+        $(settings.modulid+' .bn-title').html(settings.title);
+        $(settings.modulid).css({'width':settings.width, 'background':settings.background, 'border':settings.border, 'font-size':settings.fonttextsize });
+        $(settings.modulid+' ul').css({'left':$(settings.modulid+' .bn-title').width()+35});
+        $(settings.modulid+' .bn-title').css({'background':settings.titlebgcolor,'color':settings.titlecolor,'font-weight':fontw});
+        $(settings.modulid+' ul li a').css({'color':settings.linkcolor,'font-weight':fontw,'height':parseInt(settings.fonttextsize)+21});
+        $(settings.modulid+' ul li').eq( parseInt(activenewsid-1) ).css({'display':'block'});
+
+        // Links hover events ......
+        $(settings.modulid+' ul li a').hover(function()
+                {
+                  $(this).css({'color':settings.linkhovercolor});
+                },
+                function ()
+                {
+                  $(this).css({'color':settings.linkcolor});
+                }
+        );
+
+
+        // Arrows Click Events ......
+        $(settings.modulid+' .bn-arrows span').click(function(e) {
+          if ( $(this).attr('class')=="bn-arrows-left" )
+            BnAutoPlay('prev');
+          else
+            BnAutoPlay('next');
+        });
+
+        // Timer events ...............
+        if (settings.autoplay==true)
+        {
+          timername=setInterval(function(){BnAutoPlay('next')},settings.timer);
+          $(settings.modulid).hover(function()
+                  {
+                    clearInterval(timername);
+                  },
+                  function()
+                  {
+                    timername=setInterval(function(){BnAutoPlay('next')},settings.timer);
+                  }
+          );
+        }
+        else
+        {
+          clearInterval(timername);
+        }
+
+        //timer and click events function ...........
+        function BnAutoPlay(pos)
+        {
+          if ( pos=="next" )
+          {
+            if ( $(settings.modulid+' ul li').length>activenewsid )
+              activenewsid++;
+            else
+              activenewsid=1;
+          }
+          else
+          {
+            if (activenewsid-2==-1)
+              activenewsid=$(settings.modulid+' ul li').length;
+            else
+              activenewsid=activenewsid-1;
+          }
+
+          if (settings.effect=='fade')
+          {
+            $(settings.modulid+' ul li').css({'display':'none'});
+            $(settings.modulid+' ul li').eq( parseInt(activenewsid-1) ).fadeIn();
+          }
+          else
+          {
+            $(settings.modulid+' ul').animate({'marginTop':-($(settings.modulid+' ul li').height())*(activenewsid-1)});
+          }
+        }
+
+        // links size calgulating function ...........
+        $(window).resize(function(e) {
+          if ( $(settings.modulid).width()<360 )
+          {
+            $(settings.modulid+' .bn-title').html(' ');
+            $(settings.modulid+' .bn-title').css({ 'width':'4px', 'padding':'0 0px'});
+            $(settings.modulid+' ul').css({'left':4});
+          }else
+          {
+            $(settings.modulid+' .bn-title').html(settings.title);
+            $(settings.modulid+' .bn-title').css({ 'width':'auto', 'padding':'0 20px'});
+            $(settings.modulid+' ul').css({'left':$(settings.modulid+' .bn-title').width()+35});
+          }
+        });
+      });
+
+    };
+
+  })(jQuery);
+  $(function(){
+    $('#breakingnews2').BreakingNews({
+      title: '最新公告',
+      timer: 3000,
+      effect: 'slide'
+    });
+  });
+  // 投诉报修选项卡
+  $(function(){
+    $(".title li").click(function(){
+
+      $(this).addClass("filter active btn btn-common").siblings().removeClass("filter active btn btn-common");
+      $("#content .container").eq($(".title li").index(this)).show().siblings("#content .container").hide();
+    });
+  });
+  /**
+   * 办事指南
+   */
+  $(function(){
+    $.ajax({
+      type:"POST",
+      url:"/system/guide/getBusinessGuide",
+      dataType:"json",
+      success:function(data){
+        if(data.content!=null || data.content!='' || data.content!=undefined){
+          $("#businessGuide").html(data.content);
+        }
+      }
+    });
+  });
+  /**
+   * 公告
+   */
+  $(function(){
+    $.ajax({
+      type:"POST",
+      url:"/community/noticeList",
+      dataType:"json",
+      success:function(data){
+        $.each(data,function (i,v){
+          var html = '<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-item"><div class="blog-item-wrapper">\n' +
+                  '              <div class="blog-item-img">\n' +
+                  '                <a href="single-post.html">\n' +
+                  '                  <img src="img/blog/img1.jpg" alt="">\n' +
+                  '                </a>\n' +
+                  '              </div>\n' +
+                  '              <div  class="blog-item-text">\n' +
+                  '                <div class="meta-tags">\n' +
+                  '                  <span class="date" name="createTime"><i class="lnr  lnr-clock">'+v.createTime+'</i></span>\n' +
+                  '                </div>\n' +
+                  '                <h3>\n' +
+                  '                  <a href="single-post.html">'+v.noticeTitle+'</a>\n' +
+                  '                </h3>\n' +
+                  '                <p>'+v.noticeContent+'</p>\n' +
+                  '              </div>\n' +
+                  '            </div></div>';
+          $("#notice").append(html);
+        });
+      }
+    });
+  });
+
+  /**
+   * 保修和投诉的添加
+   */
+  function addWarranty(){
+    var phone = $("#tellWarranty");
+    if(!(/^1[3456789]\d{9}$/.test(phone))){
+      alert("手机号码有误，请重填");
+      return false;
+    }
+    //保修
+    $.ajax({
+      type: "POST",//方法类型
+      dataType: "json",//预期服务器返回的数据类型
+      url: "/community/addWarranty" ,//url
+      data: $('#addWarranty').serialize(),
+      success: function (result) {
+        alert("提交成功！")
+      }
+    });
+  }
+  function addComplaint(){
+    var phone = $("#tellComplaint");
+    if(!(/^1[3456789]\d{9}$/.test(phone))){
+      alert("手机号码有误，请重填");
+      return false;
+    }
+    //投诉
+    $.ajax({
+      type: "POST",//方法类型
+      dataType: "json",//预期服务器返回的数据类型
+      url: "/community/addComplaint" ,//url
+      data: $('#addComplaint').serialize(),
+      success: function (result) {
+        alert("提交成功！")
+      }
+    });
+  };
+</script>
+<script th:inline="javascript">
+  var notice = [[${notices}]];
+  console.log(notice);
+</script>
+</body>
+</html>

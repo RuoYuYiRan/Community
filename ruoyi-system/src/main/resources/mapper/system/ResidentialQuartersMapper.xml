@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ResidentialQuartersMapper">
+    
+    <resultMap type="ResidentialQuarters" id="ResidentialQuartersResult">
+        <result property="id"    column="id"    />
+        <result property="cellName"    column="cell_name"    />
+        <result property="cellAddress"    column="cell_address"    />
+        <result property="remake"    column="remake"    />
+    </resultMap>
+
+    <sql id="selectResidentialQuartersVo">
+        select id, cell_name, cell_address, remake from residential_quarters
+    </sql>
+
+    <select id="selectResidentialQuartersList" parameterType="ResidentialQuarters" resultMap="ResidentialQuartersResult">
+        <include refid="selectResidentialQuartersVo"/>
+        <where>  
+            <if test="cellName != null  and cellName != ''"> and cell_name like concat('%', #{cellName}, '%')</if>
+            <if test="cellAddress != null  and cellAddress != ''"> and cell_address = #{cellAddress}</if>
+            <if test="remake != null  and remake != ''"> and remake = #{remake}</if>
+        </where>
+    </select>
+    
+    <select id="selectResidentialQuartersById" parameterType="Integer" resultMap="ResidentialQuartersResult">
+        <include refid="selectResidentialQuartersVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertResidentialQuarters" parameterType="ResidentialQuarters" useGeneratedKeys="true" keyProperty="id">
+        insert into residential_quarters
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cellName != null  and cellName != ''">cell_name,</if>
+            <if test="cellAddress != null  and cellAddress != ''">cell_address,</if>
+            <if test="remake != null  and remake != ''">remake,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cellName != null  and cellName != ''">#{cellName},</if>
+            <if test="cellAddress != null  and cellAddress != ''">#{cellAddress},</if>
+            <if test="remake != null  and remake != ''">#{remake},</if>
+         </trim>
+    </insert>
+
+    <update id="updateResidentialQuarters" parameterType="ResidentialQuarters">
+        update residential_quarters
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cellName != null  and cellName != ''">cell_name = #{cellName},</if>
+            <if test="cellAddress != null  and cellAddress != ''">cell_address = #{cellAddress},</if>
+            <if test="remake != null  and remake != ''">remake = #{remake},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteResidentialQuartersById" parameterType="Integer">
+        delete from residential_quarters where id = #{id}
+    </delete>
+
+    <delete id="deleteResidentialQuartersByIds" parameterType="String">
+        delete from residential_quarters where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="selectCellNameByCellId" parameterType="ResidentialQuarters" resultMap="ResidentialQuartersResult">
+        select id, cell_name from residential_quarters
+    </select>
+</mapper>

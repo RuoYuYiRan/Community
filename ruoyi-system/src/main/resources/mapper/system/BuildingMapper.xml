@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BuildingMapper">
+    
+    <resultMap type="Building" id="BuildingResult">
+        <result property="id"    column="id"    />
+        <result property="cellId"    column="cell_id"    />
+        <result property="buildName"    column="build_name"    />
+        <result property="cellNum"    column="cell_num"    />
+        <result property="buildLevel"    column="build_level"    />
+        <result property="buildType"    column="build_type"    />
+        <result property="buildStructure"    column="build_structure"    />
+        <result property="buildOrientation"    column="build_orientation"    />
+        <result property="remake"    column="remake"    />
+    </resultMap>
+
+    <sql id="selectBuildingVo">
+        select id, cell_id, build_name, cell_num, build_level, build_type, build_structure, build_orientation, remake from building
+    </sql>
+
+    <select id="selectBuildingList" parameterType="Building" resultMap="BuildingResult">
+        <include refid="selectBuildingVo"/>
+        <where>
+            <if test="cellId != null "> and cell_id = #{cellId}</if>
+            <if test="buildName != null and buildName != ''"> and build_name like concat('%', #{buildName}, '%')</if>
+            <if test="cellNum != null "> and cell_num = #{cellNum}</if>
+            <if test="buildLevel != null and buildLevel != ''"> and build_level = #{buildLevel}</if>
+            <if test="buildType != null  and buildType != ''"> and build_type = #{buildType}</if>
+            <if test="buildStructure != null  and buildStructure != ''"> and build_structure = #{buildStructure}</if>
+            <if test="buildOrientation != null  and buildOrientation != ''"> and build_orientation = #{buildOrientation}</if>
+            <if test="remake != null  and remake != ''"> and remake = #{remake}</if>
+        </where>
+    </select>
+    
+    <select id="selectBuildingById" parameterType="Integer" resultMap="BuildingResult">
+        <include refid="selectBuildingVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBuilding" parameterType="Building" useGeneratedKeys="true" keyProperty="id">
+        insert into building
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cellId != null ">cell_id,</if>
+            <if test="buildName != null and buildName ！= ''">build_name,</if>
+            <if test="cellNum != null ">cell_num,</if>
+            <if test="buildLevel != null and buildLevel != ''">build_level,</if>
+            <if test="buildType != null  and buildType != ''">build_type,</if>
+            <if test="buildStructure != null  and buildStructure != ''">build_structure,</if>
+            <if test="buildOrientation != null  and buildOrientation != ''">build_orientation,</if>
+            <if test="remake != null  and remake != ''">remake,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cellId != null ">#{cellId},</if>
+            <if test="buildName != null and buildName != ''">#{buildName},</if>
+            <if test="cellNum != null ">#{cellNum},</if>
+            <if test="buildLevel != null and buildLevel != ''">#{buildLevel},</if>
+            <if test="buildType != null  and buildType != ''">#{buildType},</if>
+            <if test="buildStructure != null  and buildStructure != ''">#{buildStructure},</if>
+            <if test="buildOrientation != null  and buildOrientation != ''">#{buildOrientation},</if>
+            <if test="remake != null  and remake != ''">#{remake},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBuilding" parameterType="Building">
+        update building
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cellId != null ">cell_id = #{cellId},</if>
+            <if test="buildName != null and buildName != ''">build_name = #{buildName},</if>
+            <if test="cellNum != null ">cell_num = #{cellNum},</if>
+            <if test="buildLevel != null and buildLevel != ''">build_level = #{buildLevel},</if>
+            <if test="buildType != null  and buildType != ''">build_type = #{buildType},</if>
+            <if test="buildStructure != null  and buildStructure != ''">build_structure = #{buildStructure},</if>
+            <if test="buildOrientation != null  and buildOrientation != ''">build_orientation = #{buildOrientation},</if>
+            <if test="remake != null  and remake != ''">remake = #{remake},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBuildingById" parameterType="Integer">
+        delete from building where id = #{id}
+    </delete>
+
+    <delete id="deleteBuildingByIds" parameterType="String">
+        delete from building where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectIdAndBuildName" parameterType="Building" resultMap="BuildingResult">
+       select id, build_name from building
+    </select>
+</mapper>

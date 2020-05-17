@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.HouseMapper">
+    
+    <resultMap type="House" id="HouseResult">
+        <result property="id"    column="id"    />
+        <result property="cellId"    column="cell_id"    />
+        <result property="buildId"    column="build_id"    />
+        <result property="unitNum"    column="unit_num"    />
+        <result property="floor"    column="floor"    />
+        <result property="roomNum"    column="room_num"    />
+        <result property="floorArea"    column="floor_area"    />
+        <result property="houseArea"    column="house_area"    />
+        <result property="poolArea"    column="pool_area"    />
+        <result property="roomType"    column="room_type"    />
+        <result property="houseRoom"    column="house_room"    />
+        <result property="houseOffice"    column="house_office"    />
+        <result property="houseBathroom"    column="house_bathroom"    />
+    </resultMap>
+
+    <sql id="selectHouseVo">
+        select id, cell_id, build_id, unit_num, floor, room_num, floor_area, house_area, pool_area, room_type, house_room, house_office, house_bathroom from house
+    </sql>
+
+    <select id="selectHouseList" parameterType="House" resultMap="HouseResult">
+        <include refid="selectHouseVo"/>
+        <where>  
+            <if test="cellId != null "> and cell_id = #{cellId}</if>
+            <if test="buildId != null "> and build_id = #{buildId}</if>
+            <if test="unitNum != null "> and unit_num = #{unitNum}</if>
+            <if test="floor != null "> and floor = #{floor}</if>
+            <if test="roomNum != null "> and room_num = #{roomNum}</if>
+            <if test="floorArea != null  and floorArea != ''"> and floor_area = #{floorArea}</if>
+            <if test="houseArea != null  and houseArea != ''"> and house_area = #{houseArea}</if>
+            <if test="poolArea != null  and poolArea != ''"> and pool_area = #{poolArea}</if>
+            <if test="roomType != null  and roomType != ''"> and room_type = #{roomType}</if>
+            <if test="houseRoom != null "> and house_room = #{houseRoom}</if>
+            <if test="houseOffice != null "> and house_office = #{houseOffice}</if>
+            <if test="houseBathroom != null "> and house_bathroom = #{houseBathroom}</if>
+        </where>
+    </select>
+    
+    <select id="selectHouseById" parameterType="Integer" resultMap="HouseResult">
+        <include refid="selectHouseVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHouse" parameterType="House" useGeneratedKeys="true" keyProperty="id">
+        insert into house
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cellId != null ">cell_id,</if>
+            <if test="buildId != null ">build_id,</if>
+            <if test="unitNum != null ">unit_num,</if>
+            <if test="floor != null ">floor,</if>
+            <if test="roomNum != null ">room_num,</if>
+            <if test="floorArea != null  and floorArea != ''">floor_area,</if>
+            <if test="houseArea != null  and houseArea != ''">house_area,</if>
+            <if test="poolArea != null  and poolArea != ''">pool_area,</if>
+            <if test="roomType != null  and roomType != ''">room_type,</if>
+            <if test="houseRoom != null ">house_room,</if>
+            <if test="houseOffice != null ">house_office,</if>
+            <if test="houseBathroom != null ">house_bathroom,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cellId != null ">#{cellId},</if>
+            <if test="buildId != null ">#{buildId},</if>
+            <if test="unitNum != null ">#{unitNum},</if>
+            <if test="floor != null ">#{floor},</if>
+            <if test="roomNum != null ">#{roomNum},</if>
+            <if test="floorArea != null  and floorArea != ''">#{floorArea},</if>
+            <if test="houseArea != null  and houseArea != ''">#{houseArea},</if>
+            <if test="poolArea != null  and poolArea != ''">#{poolArea},</if>
+            <if test="roomType != null  and roomType != ''">#{roomType},</if>
+            <if test="houseRoom != null ">#{houseRoom},</if>
+            <if test="houseOffice != null ">#{houseOffice},</if>
+            <if test="houseBathroom != null ">#{houseBathroom},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHouse" parameterType="House">
+        update house
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cellId != null ">cell_id = #{cellId},</if>
+            <if test="buildId != null ">build_id = #{buildId},</if>
+            <if test="unitNum != null ">unit_num = #{unitNum},</if>
+            <if test="floor != null ">floor = #{floor},</if>
+            <if test="roomNum != null ">room_num = #{roomNum},</if>
+            <if test="floorArea != null  and floorArea != ''">floor_area = #{floorArea},</if>
+            <if test="houseArea != null  and houseArea != ''">house_area = #{houseArea},</if>
+            <if test="poolArea != null  and poolArea != ''">pool_area = #{poolArea},</if>
+            <if test="roomType != null  and roomType != ''">room_type = #{roomType},</if>
+            <if test="houseRoom != null ">house_room = #{houseRoom},</if>
+            <if test="houseOffice != null ">house_office = #{houseOffice},</if>
+            <if test="houseBathroom != null ">house_bathroom = #{houseBathroom},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHouseById" parameterType="Integer">
+        delete from house where id = #{id}
+    </delete>
+
+    <delete id="deleteHouseByIds" parameterType="String">
+        delete from house where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="selectIdAndUnitNum" parameterType="House" resultMap="HouseResult">
+        select id, unit_num from house
+    </select>
+</mapper>

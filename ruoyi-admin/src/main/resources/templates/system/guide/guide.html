@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('办事指南列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <a class="btn btn-primary single" onclick="$.operate.editFull()" shiro:hasPermission="system:guide:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+            </div>
+            <div class="col-sm-12 search-collapse" th:utext="${list.content}"></div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:guide:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:guide:remove')}]];
+        var prefix = ctx + "system/guide";
+
+        $(function() {
+            var options = {
+                updateUrl: prefix + "/editPage"
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.WarrantyMapper">
+    
+    <resultMap type="Warranty" id="WarrantyResult">
+        <result property="id"    column="id"    />
+        <result property="cellId"    column="cell_id"    />
+        <result property="buildId"    column="build_id"    />
+        <result property="houseId"    column="house_id"    />
+        <result property="address"    column="address"    />
+        <result property="tellPhone"    column="tell_phone"    />
+        <result property="warrantyInstructions"    column="Warranty_instructions"    />
+        <result property="remake"    column="remake"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="endTime"    column="end_time"    />
+    </resultMap>
+
+    <sql id="selectWarrantyVo">
+        select id, cell_id, build_id, house_id, address, tell_phone, Warranty_instructions, remake, status, create_time, end_time from warranty
+    </sql>
+
+    <select id="selectWarrantyList" parameterType="Warranty" resultMap="WarrantyResult">
+        <include refid="selectWarrantyVo"/>
+        <where>  
+            <if test="cellId != null "> and cell_id = #{cellId}</if>
+            <if test="buildId != null "> and build_id = #{buildId}</if>
+            <if test="houseId != null "> and house_id = #{houseId}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="tellPhone != null  and tellPhone != ''"> and tell_phone = #{tellPhone}</if>
+            <if test="warrantyInstructions != null  and warrantyInstructions != ''"> and Warranty_instructions = #{warrantyInstructions}</if>
+            <if test="remake != null  and remake != ''"> and remake = #{remake}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectWarrantyById" parameterType="Integer" resultMap="WarrantyResult">
+        <include refid="selectWarrantyVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWarranty" parameterType="Warranty" useGeneratedKeys="true" keyProperty="id">
+        insert into warranty
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cellId != null ">cell_id,</if>
+            <if test="buildId != null ">build_id,</if>
+            <if test="houseId != null ">house_id,</if>
+            <if test="address != null  and address != ''">address,</if>
+            <if test="tellPhone != null  and tellPhone != ''">tell_phone,</if>
+            <if test="warrantyInstructions != null  and warrantyInstructions != ''">Warranty_instructions,</if>
+            <if test="remake != null  and remake != ''">remake,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="endTime != null ">end_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cellId != null ">#{cellId},</if>
+            <if test="buildId != null ">#{buildId},</if>
+            <if test="houseId != null ">#{houseId},</if>
+            <if test="address != null  and address != ''">#{address},</if>
+            <if test="tellPhone != null  and tellPhone != ''">#{tellPhone},</if>
+            <if test="warrantyInstructions != null  and warrantyInstructions != ''">#{warrantyInstructions},</if>
+            <if test="remake != null  and remake != ''">#{remake},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="endTime != null ">#{endTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWarranty" parameterType="Warranty">
+        update warranty
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cellId != null ">cell_id = #{cellId},</if>
+            <if test="buildId != null ">build_id = #{buildId},</if>
+            <if test="houseId != null ">house_id = #{houseId},</if>
+            <if test="address != null  and address != ''">address = #{address},</if>
+            <if test="tellPhone != null  and tellPhone != ''">tell_phone = #{tellPhone},</if>
+            <if test="warrantyInstructions != null  and warrantyInstructions != ''">Warranty_instructions = #{warrantyInstructions},</if>
+            <if test="remake != null  and remake != ''">remake = #{remake},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="endTime != null ">end_time = #{endTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWarrantyById" parameterType="Integer">
+        delete from warranty where id = #{id}
+    </delete>
+
+    <delete id="deleteWarrantyByIds" parameterType="String">
+        delete from warranty where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
