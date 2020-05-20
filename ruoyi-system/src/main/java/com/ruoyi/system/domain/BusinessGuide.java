@@ -31,6 +31,14 @@ public class BusinessGuide extends BaseEntity
     @Excel(name = "内容")
     private String content;
 
+    /** 联系电话 */
+    @Excel(name = "电话")
+    private String phone;
+
+    /** 地址 */
+    @Excel(name = "地址")
+    private String address;
+
     /** 备注 */
     @Excel(name = "备注")
     private String remake;
@@ -81,6 +89,22 @@ public class BusinessGuide extends BaseEntity
         return remake;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -88,6 +112,8 @@ public class BusinessGuide extends BaseEntity
             .append("isStart", getIsStart())
             .append("createDate", getCreateDate())
             .append("content", getContent())
+            .append("phone", getPhone())
+            .append("address", getAddress())
             .append("remake", getRemake())
             .toString();
     }

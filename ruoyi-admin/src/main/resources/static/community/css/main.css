@@ -1124,7 +1124,7 @@ button:focus {
 }
 
 .meta-tags span {
-  color: #999;
+  color: black;
   margin-right: 10px;
 }
 
@@ -1133,11 +1133,11 @@ button:focus {
 }
 
 .meta-tags span a {
-  color: #999;
+  color: black;
 }
 
 .meta-tags span a:hover {
-  color: #61D2B4;
+  color: black;
 }
 
 /* ==========================================================================

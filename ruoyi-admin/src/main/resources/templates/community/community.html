@@ -7,7 +7,7 @@
   <meta name="keywords" content="Bootstrap, Parallax, Template, Registration, Landing">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>社区服务 - 管理平台系统</title>
+  <title>社区服务 - 管理平台子系统</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" th:href="@{/community/css/bootstrap.min.css}">
@@ -90,7 +90,7 @@
     <div class="row justify-content-md-center">
       <div class="col-md-10">
         <div class="contents text-center">
-          <h1 class="wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="0.3s">社区服务 - 管理平台系统</h1>
+          <h1 class="wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="0.3s">社区服务 - 管理平台子系统</h1>
           <p class="lead  wow fadeIn" data-wow-duration="1000ms" data-wow-delay="400ms">Community service management platform system </p>
           <a href="#" class="btn btn-common wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">come</a>
         </div>
@@ -111,7 +111,8 @@
           <div class="bn-title"></div>
           <ul id="abc">
             <li th:each="notice : ${noticeList}">
-              <a th:text="${notice.noticeTitle}"></a><a>：</a><a href="#" th:text="${notice.noticeContent}"></a>
+<!--              <a th:text="${notice.noticeTitle}">:</a>-->
+              <a href="#" th:text="${notice.noticeContent}"></a>
             </li>
           </ul>
         </div>
@@ -172,7 +173,7 @@
       <div class="col-md-4 col-sm-6" onclick="window.open('community/warranty')">
         <div class="item-boxes wow fadeInDown" data-wow-delay="0.8s">
           <div class="icon">
-            <i class="lnr lnr-map"></i>
+            <i class="lnr lnr-map-marker"></i>
           </div>
           <h4>保修查询</h4>
           <p></p>
@@ -200,22 +201,9 @@
       <hr class="lines">
       <p class="section-subtitle" style="color: #0b0b0b">社区相关服务办事指导 <br> Lorem ipsum dolor sit amet, consectetur.</p>
     </div>
-    <div class="row">
-      <div class="col-lg-8 col-md-12 col-xs-12">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12 col-sm-12 col-xs-12 box-item">
-              <div id="businessGuide" class="text" style="color: #0b0b0b">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-xs-12">
-        <div class="show-box">
-          <img class="img-fulid" src="img/features/feature.png" alt="">
-        </div>
-      </div>
+    <div class="row" id="businessGuide">
+
+    </div>
     </div>
   </div>
 </section>
@@ -339,11 +327,10 @@
       <div class="row">
         <div class="col-lg-6 col-sm-6 col-xs-12">
           <div class="contact-us">
-            <h3>Contact With us</h3>
+            <h3>联系我</h3>
             <div class="contact-address">
-              <p>Centerville Road, DE 19808, US </p>
-              <p class="phone">Phone: <span>(+94 123 456 789)</span></p>
-              <p class="email">E-mail: <span>(contact@mate.com)</span></p>
+              <p class="phone">社区服务电话: <span>(+94 123 456 789)</span></p>
+              <p class="email">E社区邮箱: <span>(jiahuaCommunity@mate.com)</span></p>
             </div>
             <div class="social-icons">
               <ul>
@@ -401,16 +388,16 @@
       <div class="col-lg-6 col-sm-6 col-xs-12">
         <ul class="footer-links">
           <li>
-            <a href="#">Homepage</a>
+            <a href="#hero-area">Homepage</a>
           </li>
           <li>
-            <a href="#">Services</a>
+            <a href="#services">Services</a>
           </li>
           <li>
             <a href="#">About Us</a>
           </li>
           <li>
-            <a href="#">Contact</a>
+            <a href="#contact">Contact</a>
           </li>
         </ul>
       </div>
@@ -610,12 +597,34 @@
   $(function(){
     $.ajax({
       type:"POST",
-      url:"/system/guide/getBusinessGuide",
+      url:"/community/selectLimitList",
       dataType:"json",
       success:function(data){
-        if(data.content!=null || data.content!='' || data.content!=undefined){
-          $("#businessGuide").html(data.content);
-        }
+        console.log(data);
+        $.each(data,function (i,v){
+            var html = '<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-item"><div class="blog-item-wrapper">\n' +
+                '              <div class="blog-item-img" style="height:150px;float: left; margin-right: 10px; ">\n' +
+                '                <a href="single-post.html">\n' +
+                // '                  <img src="img/guide.jpg" style="float: left; width:100px;height: 100px; margin-top: 20px;">\n' +
+                '                </a>\n' +
+                '              </div>\n' +
+                '              <div  class="blog-item-text">\n' +
+                '                <div class="meta-tags">\n' +
+                '                  <span class="date" name="createTime"><i class="lnr  lnr-clock">'+v.createDate+'</i></span>\n' +
+                '                </div>\n' +
+                    '                <div class="meta-tags">\n' +
+                    '                  <span class="date" name="createTime"><i class="lnr  lnr-phone-handset">'+v.phone+'</i></span>\n' +
+                    '                </div>\n' +
+                    '                <div class="meta-tags">\n' +
+                    '                  <span class="date" name="content"><i class="lnr  lnr-database">'+v.content+'</i></span>\n' +
+                    '                </div>\n' +
+                    '                <div class="meta-tags">\n' +
+                    '                  <span class="date" name="address"><i class="lnr  lnr-apartment">'+v.address+'</i></span>\n' +
+                    '                </div>\n' +
+                '              </div>\n' +
+                '            </div></div>';
+          $("#businessGuide").append(html);
+        });
       }
     });
   });
@@ -628,6 +637,7 @@
       url:"/community/noticeList",
       dataType:"json",
       success:function(data){
+        console.log(data);
         $.each(data,function (i,v){
           var html = '<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 blog-item"><div class="blog-item-wrapper">\n' +
                   '              <div class="blog-item-img">\n' +
@@ -640,7 +650,7 @@
                   '                  <span class="date" name="createTime"><i class="lnr  lnr-clock">'+v.createTime+'</i></span>\n' +
                   '                </div>\n' +
                   '                <h3>\n' +
-                  '                  <a href="single-post.html">'+v.noticeTitle+'</a>\n' +
+                  '                  <a href="single-post.html" class="lnr lnr-alarm">'+v.noticeTitle+'</a>\n' +
                   '                </h3>\n' +
                   '                <p>'+v.noticeContent+'</p>\n' +
                   '              </div>\n' +

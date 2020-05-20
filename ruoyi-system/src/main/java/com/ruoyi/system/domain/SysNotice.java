@@ -32,6 +32,9 @@ public class SysNotice extends BaseEntity
     /** 公告状态（0正常 1关闭） */
     private String status;
 
+    /** 发布状态状态（0未发布 1已发布） */
+    private String publishStatus;
+
     /** 公告创建人 */
     private String createBy;
 
@@ -146,6 +149,14 @@ public class SysNotice extends BaseEntity
         this.remark = remark;
     }
 
+    public String getPublishStatus() {
+        return publishStatus;
+    }
+
+    public void setPublishStatus(String publishStatus) {
+        this.publishStatus = publishStatus;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -154,6 +165,7 @@ public class SysNotice extends BaseEntity
             .append("noticeType", getNoticeType())
             .append("noticeContent", getNoticeContent())
             .append("status", getStatus())
+            .append("publishStatus", getPublishStatus())
             .append("createBy", getCreateBy())
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())

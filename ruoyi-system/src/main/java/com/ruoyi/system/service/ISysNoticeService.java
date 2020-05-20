@@ -27,11 +27,12 @@ public interface ISysNoticeService
     public List<SysNotice> selectNoticeList(SysNotice notice);
 
     /**
-     * 通过公告类型查询公告
-     * @param noticeType 公告类型
+     * 通过公告类型和发布状态查询
+     * @param noticeType
+     * @param publishStatus
      * @return
      */
-    public List<SysNotice> selectNoticeByType(Integer noticeType);
+    public List<SysNotice> selectNoticeByType(Integer noticeType,Integer publishStatus);
 
     /**
      * 查询所有的公告

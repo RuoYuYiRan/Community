@@ -159,4 +159,15 @@ public class ComplaintController extends BaseController {
     {
         return toAjax(complaintService.deleteComplaintByIds(ids));
     }
+
+    /**
+     * 反馈跳转
+     */
+    @GetMapping("/feedback/{id}")
+    public String feedback(@PathVariable("id") Integer id, ModelMap mmap)
+    {
+        Complaint complaint = complaintService.selectComplaintById(id);
+        mmap.put("complaint", complaint);
+        return prefix + "/feedback";
+    }
 }

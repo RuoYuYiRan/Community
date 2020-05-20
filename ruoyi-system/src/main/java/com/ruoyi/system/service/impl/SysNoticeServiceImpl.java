@@ -45,14 +45,16 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     }
 
     /**
-     * 通过公告类型查询公告信息
-     * @param noticeType 公告类型
+     * 通过购公告类型和发布状态查询
+     * @param noticeType
+     * @param publishStatus
      * @return
      */
     @Override
-    public List<SysNotice> selectNoticeByType(Integer noticeType) {
-        return noticeMapper.selectNoticeByType(noticeType);
+    public List<SysNotice> selectNoticeByType(Integer noticeType, Integer publishStatus) {
+        return noticeMapper.selectNoticeByType(noticeType,publishStatus);
     }
+
 
 
     /**

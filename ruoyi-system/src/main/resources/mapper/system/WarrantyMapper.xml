@@ -34,9 +34,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap id="House" type="House" >
         <result property="id"    column="unit_id"    />
         <result property="unitNum"    column="unit_num"    />
+        <result property="feedback"    column="feedback"    />
     </resultMap>
 
     <sql id="selectWarrantyVo">
+        select id, cell_id, build_id, house_id, address, tell_phone, Warranty_instructions, remake, status, create_time, end_time,feedback from warranty
         select w.id, w.cell_id, w.build_id, w.house_id, w.address, w.tell_phone, w.Warranty_instructions, w.remake, w.status, w.create_time, w.end_time,
         r.id as cell_id, r.cell_name,b.id as build_id,b.build_name,h.id as unit_id,h.unit_num
         from warranty w
@@ -78,6 +80,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="status != null  and status != ''">w.status,</if>
             <if test="createTime != null ">w.create_time,</if>
             <if test="endTime != null ">w.end_time,</if>
+            <if test="cellId != null ">cell_id,</if>
+            <if test="buildId != null ">build_id,</if>
+            <if test="houseId != null ">house_id,</if>
+            <if test="address != null  and address != ''">address,</if>
+            <if test="tellPhone != null  and tellPhone != ''">tell_phone,</if>
+            <if test="warrantyInstructions != null  and warrantyInstructions != ''">Warranty_instructions,</if>
+            <if test="remake != null  and remake != ''">remake,</if>
+            status,
+            <if test="createTime != null ">create_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="cellId != null ">#{cellId},</if>
@@ -87,9 +98,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tellPhone != null  and tellPhone != ''">#{tellPhone},</if>
             <if test="warrantyInstructions != null  and warrantyInstructions != ''">#{warrantyInstructions},</if>
             <if test="remake != null  and remake != ''">#{remake},</if>
-            <if test="status != null  and status != ''">#{status},</if>
-            <if test="createTime != null ">#{createTime},</if>
-            <if test="endTime != null ">#{endTime},</if>
+            0,
+            sysdate()
          </trim>
     </insert>
 
@@ -103,9 +113,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tellPhone != null  and tellPhone != ''">tell_phone = #{tellPhone},</if>
             <if test="warrantyInstructions != null  and warrantyInstructions != ''">Warranty_instructions = #{warrantyInstructions},</if>
             <if test="remake != null  and remake != ''">remake = #{remake},</if>
-            <if test="status != null  and status != ''">status = #{status},</if>
+            status = 1,
             <if test="createTime != null ">create_time = #{createTime},</if>
-            <if test="endTime != null ">end_time = #{endTime},</if>
+            end_time = sysdate(),
+            feedback = #{feedback}
         </trim>
         where id = #{id}
     </update>

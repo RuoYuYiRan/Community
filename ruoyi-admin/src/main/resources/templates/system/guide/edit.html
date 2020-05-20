@@ -8,6 +8,18 @@
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-guide-edit" th:object="${businessGuide}">
             <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">电话：</label>
+                <div class="col-sm-11">
+                    <textarea name="remake" th:field="*{phone}" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">地址：</label>
+                <div class="col-sm-11">
+                    <textarea name="remake" th:field="*{address}" class="form-control"></textarea>
+                </div>
+            </div>
             <div class="form-group">    
                 <label class="col-sm-1 control-label">内容：</label>
                 <div class="col-sm-11">

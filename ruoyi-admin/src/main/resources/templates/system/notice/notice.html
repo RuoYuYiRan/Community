@@ -54,6 +54,7 @@
         var removeFlag = [[${@permission.hasPermi('system:notice:remove')}]];
         var types = [[${@dict.getType('sys_notice_type')}]];
         var datas = [[${@dict.getType('sys_notice_status')}]];
+        var publish = [[${@dict.getType('sys_notice_pubulish')}]];
         var prefix = ctx + "system/notice";
 
         $(function() {
@@ -74,6 +75,10 @@
 					field : 'noticeTitle', 
 					title : '公告标题' 
 				},
+				// {
+				// 	field : 'noticeContent',
+				// 	title : '公告内容'
+				// },
 				{
 		            field: 'noticeType',
 		            title: '公告类型',
@@ -99,6 +104,15 @@
 		            title: '创建时间',
 		            sortable: true
 		        },
+				{
+					field: 'publishStatus',
+					title: '发布状态',
+					sortable: true,
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(publish, value);
+                    }
+				},
+
 		        {
 		            title: '操作',
 		            align: 'center',

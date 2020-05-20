@@ -9,11 +9,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="isStart"    column="is_start"    />
         <result property="createDate"    column="create_date"    />
         <result property="content"    column="content"    />
+        <result property="phone"  column="phone"/>
+        <result property="address" column="address"/>
         <result property="remake"    column="remake"    />
     </resultMap>
 
     <sql id="selectBusinessGuideVo">
-        select id, is_start, create_date, content, remake from business_guide
+        select id, is_start, create_date, content,phone,address,remake from business_guide
     </sql>
 
     <select id="selectBusinessGuideList" parameterType="BusinessGuide" resultMap="BusinessGuideResult">
@@ -22,6 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="isStart != null  and isStart != ''"> and is_start = #{isStart}</if>
             <if test="createDate != null "> and create_date = #{createDate}</if>
             <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="phone  != null and phone != ''"> and phone = #{phone}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
             <if test="remake != null  and remake != ''"> and remake = #{remake}</if>
         </where>
     </select>
@@ -36,12 +40,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="isStart != null  and isStart != ''">is_start,</if>
             <if test="content != null  and content != ''">content,</if>
+            <if test="phone != null  and phone != ''">phone,</if>
+            <if test="address != null  and address != ''">address,</if>
             <if test="remake != null  and remake != ''">remake,</if>
             create_date
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="isStart != null  and isStart != ''">#{isStart},</if>
             <if test="content != null  and content != ''">#{content},</if>
+            <if test="phone != null  and phone != ''">#{phone},</if>
+            <if test="address != null  and address != ''">#{address},</if>
             <if test="remake != null  and remake != ''">#{remake},</if>
             sysdate()
          </trim>
@@ -52,6 +60,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="isStart != null  and isStart != ''">is_start = #{isStart},</if>
             <if test="content != null  and content != ''">content = #{content},</if>
+            <if test="phone != null  and phone != ''">phone = #{phone},</if>
+            <if test="address != null  and address != ''">address = #{address},</if>
             <if test="remake != null  and remake != ''">remake = #{remake},</if>
             create_date = sysdate()
         </trim>
@@ -68,5 +78,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
-    
+
+
+    <select id="getGuideOrderByTime" parameterType="BusinessGuide" resultMap="BusinessGuideResult">
+       select create_date,content,phone,address from business_guide
+        <where>
+            1=1
+            <if test="createDate != null and content != ''"> and create_date = #{createDate}</if>
+        </where>
+        order by create_date LIMIT 3
+    </select>
 </mapper>

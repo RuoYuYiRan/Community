@@ -58,4 +58,10 @@ public interface BusinessGuideMapper
      * @return 结果
      */
     public int deleteBusinessGuideByIds(String[] ids);
+
+    /**
+     * 根据时间查询最新的三条数据
+     * @return
+     */
+    public List<BusinessGuide> getGuideOrderByTime(BusinessGuide businessGuide);
 }

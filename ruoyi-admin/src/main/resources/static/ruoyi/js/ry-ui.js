@@ -1020,11 +1020,32 @@ var table = {
             	    $.modal.open("修改" + table.options.modalName, $.operate.editUrl(id));
             	}
             },
-            // 修改信息，以tab页展现
+			// 修改信息
+			feedback: function(id) {
+				table.set();
+				if($.common.isEmpty(id) && table.options.type == table_type.bootstrapTreeTable) {
+					var row = $("#" + table.options.id).bootstrapTreeTable('getSelections')[0];
+					if ($.common.isEmpty(row)) {
+						$.modal.alertWarning("请至少选择一条记录");
+						return;
+					}
+					var url = table.options.updateUrl.replace("{id}", row[table.options.uniqueId]);
+					$.modal.open("修改" + table.options.modalName, url);
+				} else {
+					$.modal.open("修改" + table.options.modalName, $.operate.editUrl(id));
+				}
+			},
+
+			// 修改信息，以tab页展现
             editTab: function(id) {
             	table.set();
             	$.modal.openTab("修改" + table.options.modalName, $.operate.editUrl(id));
             },
+			// 报修反馈
+			editFeedTab: function(id) {
+				table.set();
+				$.modal.openTab("修改" + table.options.modalName, $.operate.feedUrl(id));
+			},
             // 修改信息 全屏
             editFull: function(id) {
             	table.set();
@@ -1052,6 +1073,21 @@ var table = {
             	}
                 return url;
             },
+			// 反馈访问地址
+			feedUrl: function(id) {
+				var url = "/404.html";
+				if ($.common.isNotEmpty(id)) {
+					url = table.options.feedUrl.replace("{id}", id);
+				} else {
+					var id = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
+					if (id.length == 0) {
+						$.modal.alertWarning("请至少选择一条记录");
+						return;
+					}
+					url = table.options.feedUrl.replace("{id}", id);
+				}
+				return url;
+			},
             // 保存信息 刷新表格
             save: function(url, data, callback) {
             	var config = {

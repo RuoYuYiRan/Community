@@ -103,11 +103,10 @@ public class BusinessGuideController extends BaseController
     /**
      * 修改办事指南
      */
-    @GetMapping("/editPage")
-    public String edit( ModelMap mmap)
+    @GetMapping("//edit/{id}")
+    public String edit( @PathVariable("id") Integer id, ModelMap mmap)
     {
-        BusinessGuide businessGuide = businessGuideService.selectBusinessGuideList(null).get(0);
-        mmap.put("businessGuide", businessGuide);
+        mmap.put("businessGuide", businessGuideService.selectBusinessGuideById(id));
         return prefix + "/edit";
     }
 

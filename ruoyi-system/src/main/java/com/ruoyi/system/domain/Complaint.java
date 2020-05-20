@@ -57,6 +57,10 @@ public class Complaint extends BaseEntity {
     @Excel(name = "处理时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date endTime;
 
+    /** 反馈 */
+    @Excel(name = "反馈")
+    private String feedback;
+
     public Integer getId() {
         return id;
     }
@@ -147,6 +151,14 @@ public class Complaint extends BaseEntity {
         this.endTime = endTime;
     }
 
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -161,6 +173,7 @@ public class Complaint extends BaseEntity {
                 .append("status", getStatus())
                 .append("createTime", getCreateTime())
                 .append("endTime", getEndTime())
+                .append("feedback", getFeedback())
                 .toString();
     }
 

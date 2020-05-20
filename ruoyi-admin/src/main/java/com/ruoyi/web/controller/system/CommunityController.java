@@ -12,17 +12,15 @@ import com.ruoyi.system.service.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.List;
 
 /**
- * 前太显示
+ * 前端显示
  */
 @Controller
 @RequestMapping("/community")
@@ -46,6 +44,9 @@ public class CommunityController extends BaseController {
     @Autowired
     private IComplaintService complaintService;
 
+    @Autowired
+    private  IBusinessGuideService businessGuideService;
+
     @GetMapping()
     public ModelAndView user()
     {
@@ -54,7 +55,8 @@ public class CommunityController extends BaseController {
 
         //查询类型为通知的公告  noticeType：1通知，2公告
         Integer noticeType = 1;
-        List<SysNotice> noticeList = noticeService.selectNoticeByType(noticeType);
+        Integer publishStatus = 1;//0：未发布公告 1：已发布公告
+        List<SysNotice> noticeList = noticeService.selectNoticeByType(noticeType,publishStatus);
         mav.addObject("noticeList", noticeList);
 
         //查询小区
@@ -80,7 +82,8 @@ public class CommunityController extends BaseController {
     public String noticeList(){
         //查询类型为通知的公告  noticeType：1通知，2公告
         Integer noticeType = 2;
-        List<SysNotice> list = noticeService.selectNoticeByType(noticeType);
+        Integer publishStatus = 1;//1：已发布通知 ，0：未发布通知
+        List<SysNotice> list = noticeService.selectNoticeByType(noticeType,publishStatus);
         return JSON.toJSONString(list);
     }
 
@@ -110,6 +113,18 @@ public class CommunityController extends BaseController {
         complaint.setStatus("0");
         int i = complaintService.insertComplaint(complaint);
         return "success";
+    }
+
+    /**
+     * 查询指南信息
+     * @return
+     */
+    @Log(title = "指南", businessType = BusinessType.INSERT)
+    @PostMapping("/selectLimitList")
+    @ResponseBody
+    public String selectLimitList( BusinessGuide businessGuide){
+        List<BusinessGuide> guideList = businessGuideService.getGuideOrderByTime(businessGuide);
+        return JSON.toJSONString(guideList);
     }
 
     @GetMapping("/warranty")

@@ -61,7 +61,11 @@ public class Warranty extends BaseEntity
 
     private House house;
 
-    public void setId(Integer id) 
+    /** 维修反馈 */
+    @Excel(name = "维修反馈")
+    private String feedback;
+
+    public void setId(Integer id)
     {
         this.id = id;
     }
@@ -176,6 +180,14 @@ public class Warranty extends BaseEntity
         this.house = house;
     }
 
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -190,6 +202,7 @@ public class Warranty extends BaseEntity
             .append("status", getStatus())
             .append("createTime", getCreateTime())
             .append("endTime", getEndTime())
+            .append("feedback", getFeedback())
             .toString();
     }
 }

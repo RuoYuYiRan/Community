@@ -130,6 +130,7 @@ public class WarrantyController extends BaseController
     @ResponseBody
     public AjaxResult addSave(Warranty warranty)
     {
+
         return toAjax(warrantyService.insertWarranty(warranty));
     }
 
@@ -177,4 +178,17 @@ public class WarrantyController extends BaseController
     {
         return toAjax(warrantyService.deleteWarrantyByIds(ids));
     }
+
+    /**
+     * 反馈跳转
+     */
+    @GetMapping("/feedback/{id}")
+    public String feedback(@PathVariable("id") Integer id, ModelMap mmap)
+    {
+        Warranty warranty = warrantyService.selectWarrantyById(id);
+        mmap.put("warranty", warranty);
+        return prefix + "/feedback";
+    }
+
+
 }

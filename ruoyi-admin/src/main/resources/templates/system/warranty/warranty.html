@@ -68,18 +68,21 @@
             </div>
         </div>
     </div>
-    <th:block th:include="include :: footer" />
+     <th:block th:include="include :: footer" />
+     <th:block th:include="include :: datetimepicker-js" />
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('system:warranty:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:warranty:remove')}]];
+        var feedFlag = [[${@permission.hasPermi('system:warranty:remove')}]];
+        var sta = [[${@dict.getType('sys_warranty_status')}]];
         var prefix = ctx + "system/warranty";
 
         $(function() {
             var options = {
                 url: prefix + "/list",
                 createUrl: prefix + "/add",
-                referUrl:prefix+"/refer",
                 updateUrl: prefix + "/edit/{id}",
+                feedUrl: prefix + "/feedback/{id}",//反馈页面
                 removeUrl: prefix + "/remove",
                 exportUrl: prefix + "/export",
                 modalName: "保修",
@@ -129,6 +132,10 @@
                         var datas = [[${@dict.getType('warranty_status')}]];
                         return $.table.selectDictLabel(datas, value);
                     }
+                    title : '维修状态',
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(sta, value);
+                    }
                 },
                 {
                     field : 'endTime', 
@@ -140,6 +147,7 @@
                     formatter: function(value, row, index) {
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="editStatus(\'' + row.id + '\')"><i class="fa fa-edit"></i>处理保修</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + feedFlag + '" href="javascript:void(0)" onclick="$.operate.editFeedTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>反馈</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }

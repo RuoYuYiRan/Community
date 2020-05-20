@@ -91,4 +91,9 @@ public class BusinessGuideServiceImpl implements IBusinessGuideService
     {
         return businessGuideMapper.deleteBusinessGuideById(id);
     }
+
+    @Override
+    public List<BusinessGuide> getGuideOrderByTime( BusinessGuide businessGuide) {
+        return businessGuideMapper.getGuideOrderByTime(businessGuide);
+    }
 }

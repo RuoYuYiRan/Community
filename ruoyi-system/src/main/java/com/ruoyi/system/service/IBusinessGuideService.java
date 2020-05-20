@@ -58,4 +58,10 @@ public interface IBusinessGuideService
      * @return 结果
      */
     public int deleteBusinessGuideById(Integer id);
+
+    /**
+     * 根据时间查询最新的三条数据
+     * @return
+     */
+    public List<BusinessGuide> getGuideOrderByTime(BusinessGuide businessGuide);
 }
