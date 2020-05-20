@@ -55,6 +55,12 @@ public class Warranty extends BaseEntity
     @Excel(name = "结束日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date endTime;
 
+    private ResidentialQuarters residentialQuarters;
+
+    private Building building;
+
+    private House house;
+
     public void setId(Integer id) 
     {
         this.id = id;
@@ -144,6 +150,30 @@ public class Warranty extends BaseEntity
     public Date getEndTime() 
     {
         return endTime;
+    }
+
+    public ResidentialQuarters getResidentialQuarters() {
+        return residentialQuarters;
+    }
+
+    public void setResidentialQuarters(ResidentialQuarters residentialQuarters) {
+        this.residentialQuarters = residentialQuarters;
+    }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
+
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.system;
 
+import java.util.Date;
 import java.util.List;
 
 import com.ruoyi.system.domain.Building;
@@ -56,9 +57,20 @@ public class WarrantyController extends BaseController
 
     @RequiresPermissions("system:warranty:view")
     @GetMapping()
-    public String warranty()
-    {
-        return prefix + "/warranty";
+    public ModelAndView warranty(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName(prefix + "/warranty");
+        //查询小区
+        List<ResidentialQuarters> residentialQuartersList = residentialQuartersService.selectCellIdAndCellName();
+        mav.addObject("residentialQuartersList", residentialQuartersList);
+
+        //查询楼宇
+        List<Building> buildingList  = buildingService.selectIdAndBuildName();
+        mav.addObject("buildingList", buildingList);
+        //查询房屋
+        List<House> houseList = houseService.selectIdAndUnitNum();
+        mav.addObject("houseList", houseList);
+        return mav;
     }
 
     /**
@@ -124,25 +136,35 @@ public class WarrantyController extends BaseController
     /**
      * 修改保修
      */
-    @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Integer id, ModelMap mmap)
+    @PostMapping("/edit")
+    @ResponseBody
+    public String edit(Integer id)
     {
         Warranty warranty = warrantyService.selectWarrantyById(id);
-        mmap.put("warranty", warranty);
-        return prefix + "/edit";
+        String result = "已处理";
+        //判断
+        if("0".equals(warranty.getStatus())){
+            warranty.setStatus("1");
+            warranty.setEndTime(new Date());
+            int temp = warrantyService.updateWarranty(warranty);
+            if(temp == 0) {
+                result = "处理失败，请联系管理员";
+            }
+        }
+        return result;
     }
 
     /**
      * 修改保存保修
      */
-    @RequiresPermissions("system:warranty:edit")
+    /*@RequiresPermissions("system:warranty:edit")
     @Log(title = "保修", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(Warranty warranty)
     {
         return toAjax(warrantyService.updateWarranty(warranty));
-    }
+    }*/
 
     /**
      * 删除保修

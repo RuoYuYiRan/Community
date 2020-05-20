@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('保修列表')" />
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <label>小区：</label>
+                            <select name="cellId">
+                                <option value="">所有</option>
+                                <option th:each="residentialQuarters : ${residentialQuartersList}" th:value="${residentialQuarters.id}" th:text="${residentialQuarters.cellName}"></option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>楼宇：</label>
+                            <select name="buildId">
+                                <option value="">所有</option>
+                                <option th:each="building : ${buildingList}" th:value="${building.id}" th:text="${building.buildName}"></option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>房屋单元：</label>
+                            <select name="houseId" >
+                                <option value="">所有</option>
+                                <option th:each="house : ${houseList}" th:value="${house.id}" th:text="${house.unitNum}"></option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>联系电话：</label>
+                            <input type="text" name="tellPhone"/>
+                        </li>
+                        <li>
+                            <label>保修状态：</label>
+                            <select name="status" th:with="type=${@dict.getType('warranty_status')}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}">
+                                </option>
+                            </select>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('system:warranty:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('system:warranty:remove')}]];
+    var prefix = ctx + "community";
+
+    $(function() {
+        var options = {
+            url: prefix + "/warrantyList",
+            createUrl: prefix + "/add",
+            referUrl:prefix+"/refer",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "保修",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field : 'id',
+                    title : 'null',
+                    visible: false
+                },
+                {
+                    field : 'residentialQuarters.cellName',
+                    title : '小区'
+                },
+                {
+                    field : 'building.buildName',
+                    title : '楼宇'
+                },
+                {
+                    field : 'house.unitNum',
+                    title : '房屋单元',
+                    formatter: function(value, row, index) {
+                        return value+"单元";
+                    }
+                },
+                {
+                    field : 'tellPhone',
+                    title : '联系电话',
+                    formatter: function(value, row, index) {
+
+                        return value.substring(0,3)+"****"+value.substring(7,11);
+                    }
+                },
+                {
+                    field : 'warrantyInstructions',
+                    title : '保修描述'
+                },
+                {
+                    field : 'remake',
+                    title : '备注'
+                },
+                {
+                    field : 'status',
+                    title : '保修状态',
+                    formatter: function(value, row, index) {
+                        var datas = [[${@dict.getType('warranty_status')}]];
+                        return $.table.selectDictLabel(datas, value);
+                    }
+                },
+                {
+                    field : 'endTime',
+                    title : '结束日期'
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.system.domain.*;
@@ -109,6 +110,37 @@ public class CommunityController extends BaseController {
         complaint.setStatus("0");
         int i = complaintService.insertComplaint(complaint);
         return "success";
+    }
+
+    @GetMapping("/warranty")
+    public ModelAndView warranty(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("system/warranty/select");
+        //查询小区
+        List<ResidentialQuarters> residentialQuartersList = residentialQuartersService.selectCellIdAndCellName();
+        mav.addObject("residentialQuartersList", residentialQuartersList);
+
+        //查询楼宇
+        List<Building> buildingList  = buildingService.selectIdAndBuildName();
+        mav.addObject("buildingList", buildingList);
+        //查询房屋
+        List<House> houseList = houseService.selectIdAndUnitNum();
+        mav.addObject("houseList", houseList);
+        return mav;
+    }
+    /**
+     * 查询保修列表
+     */
+    @PostMapping("/warrantyList")
+    @ResponseBody
+    public TableDataInfo warrantyList(Warranty warranty)
+    {
+        startPage();
+        if(warranty == null) {
+            System.out.println("123123");
+        }
+        List<Warranty> list = warrantyService.selectWarrantyList(warranty);
+        return getDataTable(list);
     }
 
 }
