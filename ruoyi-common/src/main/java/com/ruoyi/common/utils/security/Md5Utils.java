@@ -18,8 +18,10 @@ public class Md5Utils
         MessageDigest algorithm;
         try
         {
+            //生成MD5加密计算摘要
             algorithm = MessageDigest.getInstance("MD5");
             algorithm.reset();
+            //计算MD5函数
             algorithm.update(s.getBytes("UTF-8"));
             byte[] messageDigest = algorithm.digest();
             return messageDigest;

@@ -3,9 +3,7 @@ package com.ruoyi.web.controller.system;
 import java.util.Date;
 import java.util.List;
 
-import com.ruoyi.system.domain.Building;
-import com.ruoyi.system.domain.House;
-import com.ruoyi.system.domain.ResidentialQuarters;
+import com.ruoyi.system.domain.*;
 import com.ruoyi.system.service.IBuildingService;
 import com.ruoyi.system.service.IHouseService;
 import com.ruoyi.system.service.IResidentialQuartersService;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.system.domain.Warranty;
 import com.ruoyi.system.service.IWarrantyService;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -189,6 +186,15 @@ public class WarrantyController extends BaseController
         mmap.put("warranty", warranty);
         return prefix + "/feedback";
     }
-
+    /**
+     * 反馈更新数据
+     * @param warranty
+     * @return
+     */
+    @PostMapping("/feedback")
+    @ResponseBody
+    public AjaxResult editSave(Warranty warranty){
+        return toAjax(warrantyService.updateWarranty(warranty));
+    }
 
 }

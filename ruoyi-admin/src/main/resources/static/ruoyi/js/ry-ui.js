@@ -1029,10 +1029,10 @@ var table = {
 						$.modal.alertWarning("请至少选择一条记录");
 						return;
 					}
-					var url = table.options.updateUrl.replace("{id}", row[table.options.uniqueId]);
+					var url = table.options.feedbackUrl.replace("{id}", row[table.options.uniqueId]);
 					$.modal.open("修改" + table.options.modalName, url);
 				} else {
-					$.modal.open("修改" + table.options.modalName, $.operate.editUrl(id));
+					$.modal.open("修改" + table.options.modalName, $.operate.feedUrl(id));
 				}
 			},
 
@@ -1044,7 +1044,7 @@ var table = {
 			// 报修反馈
 			editFeedTab: function(id) {
 				table.set();
-				$.modal.openTab("修改" + table.options.modalName, $.operate.feedUrl(id));
+				$.modal.open("修改" + table.options.modalName, $.operate.feedUrl(id));
 			},
             // 修改信息 全屏
             editFull: function(id) {
@@ -1077,14 +1077,14 @@ var table = {
 			feedUrl: function(id) {
 				var url = "/404.html";
 				if ($.common.isNotEmpty(id)) {
-					url = table.options.feedUrl.replace("{id}", id);
+					url = table.options.feedbackUrl.replace("{id}", id);
 				} else {
 					var id = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
 					if (id.length == 0) {
 						$.modal.alertWarning("请至少选择一条记录");
 						return;
 					}
-					url = table.options.feedUrl.replace("{id}", id);
+					url = table.options.feedbackUrl.replace("{id}", id);
 				}
 				return url;
 			},

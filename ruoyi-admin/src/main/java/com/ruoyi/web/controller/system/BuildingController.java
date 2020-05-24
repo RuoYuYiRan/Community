@@ -1,6 +1,10 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.House;
+import com.ruoyi.system.domain.ResidentialQuarters;
+import com.ruoyi.system.service.IResidentialQuartersService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 楼宇管理Controller
@@ -33,6 +38,11 @@ public class BuildingController extends BaseController
 
     @Autowired
     private IBuildingService buildingService;
+
+    //小区
+    @Autowired
+    private IResidentialQuartersService residentialQuartersService;
+
 
     @RequiresPermissions("system:building:view")
     @GetMapping()
@@ -69,12 +79,17 @@ public class BuildingController extends BaseController
     }
 
     /**
-     * 新增楼宇管理
+     * 新增投诉
      */
     @GetMapping("/add")
-    public String add()
+    public ModelAndView add()
     {
-        return prefix + "/add";
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName( prefix + "/add");
+        //小区
+        List<ResidentialQuarters> cells = residentialQuartersService.selectCellIdAndCellName();
+        mav.addObject("cells",cells);
+        return mav;
     }
 
     /**

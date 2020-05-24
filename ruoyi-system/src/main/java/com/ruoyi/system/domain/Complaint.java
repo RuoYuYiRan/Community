@@ -61,6 +61,12 @@ public class Complaint extends BaseEntity {
     @Excel(name = "反馈")
     private String feedback;
 
+    private ResidentialQuarters residentialQuarters;
+
+    private Building building;
+
+    private House house;
+
     public Integer getId() {
         return id;
     }
@@ -157,6 +163,30 @@ public class Complaint extends BaseEntity {
 
     public void setFeedback(String feedback) {
         this.feedback = feedback;
+    }
+
+    public ResidentialQuarters getResidentialQuarters() {
+        return residentialQuarters;
+    }
+
+    public void setResidentialQuarters(ResidentialQuarters residentialQuarters) {
+        this.residentialQuarters = residentialQuarters;
+    }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
+
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
     }
 
     @Override

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <th:block th:include="include :: header('社区管理列表')" />
+    <th:block th:include="include :: header('【请填写功能名称】列表')" />
 </head>
 <body class="gray-bg">
      <div class="container-div">
@@ -11,16 +11,12 @@
                     <div class="select-list">
                         <ul>
                             <li>
-                                <label>小区名：</label>
-                                <input type="text" name="cellName"/>
+                                <label>上报人：</label>
+                                <input type="text" name="informer"/>
                             </li>
                             <li>
-                                <label>小区地址：</label>
-                                <input type="text" name="cellAddress"/>
-                            </li>
-                            <li>
-                                <label>备注：</label>
-                                <input type="text" name="remake"/>
+                                <label>邮箱：</label>
+                                <input type="text" name="email"/>
                             </li>
                             <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -32,16 +28,16 @@
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:quarters:add">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:news:add">
                     <i class="fa fa-plus"></i> 添加
                 </a>
-                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:quarters:edit">
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:news:edit">
                     <i class="fa fa-edit"></i> 修改
                 </a>
-                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:quarters:remove">
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:news:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:quarters:export">
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:news:export">
                     <i class="fa fa-download"></i> 导出
                 </a>
             </div>
@@ -52,9 +48,9 @@
     </div>
     <th:block th:include="include :: footer" />
     <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('system:quarters:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('system:quarters:remove')}]];
-        var prefix = ctx + "system/quarters";
+        var editFlag = [[${@permission.hasPermi('system:news:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:news:remove')}]];
+        var prefix = ctx + "system/news";
 
         $(function() {
             var options = {
@@ -63,26 +59,26 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
                 exportUrl: prefix + "/export",
-                modalName: "社区管理",
+                modalName: "【请填写功能名称】",
                 columns: [{
                     checkbox: true
                 },
                 {
                     field : 'id', 
-                    title : 'null',
+                    title : 'id',
                     visible: false
                 },
                 {
-                    field : 'cellName', 
-                    title : '小区编号'
+                    field : 'informer', 
+                    title : '上报人'
                 },
                 {
-                    field : 'cellAddress', 
-                    title : '小区地址'
+                    field : 'email', 
+                    title : '邮箱'
                 },
                 {
-                    field : 'remake', 
-                    title : '备注'
+                    field : 'message', 
+                    title : '信息'
                 },
                 {
                     title: '操作',

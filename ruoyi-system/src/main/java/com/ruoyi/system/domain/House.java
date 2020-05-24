@@ -15,56 +15,62 @@ public class House extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** null */
+    /** 房屋id */
     private Integer id;
 
-    /** null */
+    /** 小区 */
     @Excel(name = "null")
     private Integer cellId;
 
-    /** null */
+    /** 楼宇 */
     @Excel(name = "null")
     private Integer buildId;
 
-    /** null */
+    /** 单元 */
     @Excel(name = "null")
     private Integer unitNum;
 
-    /** null */
+    /** 楼层 */
     @Excel(name = "null")
     private Integer floor;
 
-    /** null */
+    /** 门牌号 */
     @Excel(name = "null")
     private Integer roomNum;
 
-    /** null */
+    /** 楼层面积 */
     @Excel(name = "null")
     private String floorArea;
 
-    /** null */
+    /** 房屋面积 */
     @Excel(name = "null")
     private String houseArea;
 
-    /** null */
+    /** 统筹面积 */
     @Excel(name = "null")
     private String poolArea;
 
-    /** null */
+    /** 房屋类型 */
     @Excel(name = "null")
     private String roomType;
 
-    /** null */
+    /** 卧室 */
     @Excel(name = "null")
     private Integer houseRoom;
 
-    /** null */
+    /** 书房 */
     @Excel(name = "null")
     private Integer houseOffice;
 
-    /** null */
+    /** 卫生间 */
     @Excel(name = "null")
     private Integer houseBathroom;
+
+    //小区
+    private ResidentialQuarters residentialQuarters;
+
+    //楼宇
+    private Building building;
 
     public void setId(Integer id) 
     {
@@ -182,6 +188,22 @@ public class House extends BaseEntity
     public Integer getHouseBathroom() 
     {
         return houseBathroom;
+    }
+
+    public ResidentialQuarters getResidentialQuarters() {
+        return residentialQuarters;
+    }
+
+    public void setResidentialQuarters(ResidentialQuarters residentialQuarters) {
+        this.residentialQuarters = residentialQuarters;
+    }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
     }
 
     @Override

@@ -11,12 +11,18 @@
                     <div class="select-list">
                         <ul>
                             <li>
-                                <label>楼层id：</label>
-                                <input type="text" name="cellId"/>
+                                <label>小区：</label>
+                                <select  class="form-control" id="cellId" name="cellId" required>
+                                    <option value="">选择小区</option>
+                                    <option th:each="cell : ${cells}" th:value="${cell.id}" th:text="${cell.cellName}"></option>
+                                </select>
                             </li>
                             <li>
-                                <label>楼宇id：</label>
-                                <input type="text" name="buildId"/>
+                                <label>楼宇：</label>
+                                <select  class="form-control" id="buildId" name="buildId" required>
+                                    <option value="">选择楼宇</option>
+                                    <option th:each="build : ${builds}" th:value="${build.id}" th:text="${build.buildName}"></option>
+                                </select>
                             </li>
                             <li>
                                 <label>单元号：</label>
@@ -112,12 +118,12 @@
                     visible: false
                 },
                 {
-                    field : 'cellId', 
-                    title : '楼层id'
+                    field : 'residentialQuarters.cellName',
+                    title : '小区'
                 },
                 {
-                    field : 'buildId', 
-                    title : '楼宇id'
+                    field : 'building.buildName',
+                    title : '楼宇'
                 },
                 {
                     field : 'unitNum', 

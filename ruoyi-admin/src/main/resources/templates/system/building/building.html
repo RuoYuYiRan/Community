@@ -11,8 +11,11 @@
                     <div class="select-list">
                         <ul>
                             <li>
-                                <label>小区id：</label>
-                                <input type="text" name="cellId"/>
+                                <label>小区：</label>
+                                <select name="cellId">
+                                    <option value="">选择小区</option>
+                                    <option th:each="residentialQuarters : ${residentialQuartersList}" th:value="${residentialQuarters.id}" th:text="${residentialQuarters.cellName}"></option>
+                                </select>
                             </li>
                             <li>
                                 <label>楼宇名称：</label>
@@ -96,8 +99,8 @@
                     visible: false
                 },
                 {
-                    field : 'cellId', 
-                    title : '小区id'
+                    field : 'residentialQuarters.cellName',
+                    title : '小区'
                 },
                 {
                     field : 'buildName', 

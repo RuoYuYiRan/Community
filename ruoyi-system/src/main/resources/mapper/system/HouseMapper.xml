@@ -18,33 +18,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="houseRoom"    column="house_room"    />
         <result property="houseOffice"    column="house_office"    />
         <result property="houseBathroom"    column="house_bathroom"    />
+        <association property="residentialQuarters" column="cell_id" javaType="ResidentialQuarters" resultMap="ResidentialQuarters" />
+        <association property="building" column="build_id" javaType="Building" resultMap="Building" />
+    </resultMap>
+    <resultMap id="ResidentialQuarters" type="ResidentialQuarters" >
+        <result property="id"    column="cell_id"    />
+        <result property="cellName"    column="cell_name"    />
     </resultMap>
 
+    <resultMap id="Building" type="Building" >
+        <result property="id"    column="build_id"    />
+        <result property="buildName"    column="build_name"    />
+    </resultMap>
     <sql id="selectHouseVo">
-        select id, cell_id, build_id, unit_num, floor, room_num, floor_area, house_area, pool_area, room_type, house_room, house_office, house_bathroom from house
+        select h.id, h.cell_id, h.build_id, h.unit_num, h.floor, h.room_num, h.floor_area, h.house_area, h.pool_area, h.room_type, h.house_room, h.house_office, h.house_bathroom,
+        r.id as cell_id,r.cell_name,b.id as build_id,b.build_name
+        from house h
+        left join residential_quarters r on h.cell_id = r.id
+        left join building b on h.build_id = b.id
     </sql>
 
     <select id="selectHouseList" parameterType="House" resultMap="HouseResult">
         <include refid="selectHouseVo"/>
         <where>  
-            <if test="cellId != null "> and cell_id = #{cellId}</if>
-            <if test="buildId != null "> and build_id = #{buildId}</if>
-            <if test="unitNum != null "> and unit_num = #{unitNum}</if>
-            <if test="floor != null "> and floor = #{floor}</if>
-            <if test="roomNum != null "> and room_num = #{roomNum}</if>
-            <if test="floorArea != null  and floorArea != ''"> and floor_area = #{floorArea}</if>
-            <if test="houseArea != null  and houseArea != ''"> and house_area = #{houseArea}</if>
-            <if test="poolArea != null  and poolArea != ''"> and pool_area = #{poolArea}</if>
-            <if test="roomType != null  and roomType != ''"> and room_type = #{roomType}</if>
-            <if test="houseRoom != null "> and house_room = #{houseRoom}</if>
-            <if test="houseOffice != null "> and house_office = #{houseOffice}</if>
-            <if test="houseBathroom != null "> and house_bathroom = #{houseBathroom}</if>
+            <if test="cellId != null "> and h.cell_id = #{cellId}</if>
+            <if test="buildId != null "> and h.build_id = #{buildId}</if>
+            <if test="unitNum != null "> and h.unit_num = #{unitNum}</if>
+            <if test="floor != null "> and h.floor = #{floor}</if>
+            <if test="roomNum != null "> and h.room_num = #{roomNum}</if>
+            <if test="floorArea != null  and floorArea != ''"> and h.floor_area = #{floorArea}</if>
+            <if test="houseArea != null  and houseArea != ''"> and h.house_area = #{houseArea}</if>
+            <if test="poolArea != null  and poolArea != ''"> and h.pool_area = #{poolArea}</if>
+            <if test="roomType != null  and roomType != ''"> and h.room_type = #{roomType}</if>
+            <if test="houseRoom != null "> and h.house_room = #{houseRoom}</if>
+            <if test="houseOffice != null "> and h.house_office = #{houseOffice}</if>
+            <if test="houseBathroom != null "> and h.house_bathroom = #{houseBathroom}</if>
         </where>
     </select>
     
     <select id="selectHouseById" parameterType="Integer" resultMap="HouseResult">
         <include refid="selectHouseVo"/>
-        where id = #{id}
+        where h.id = #{id}
     </select>
         
     <insert id="insertHouse" parameterType="House" useGeneratedKeys="true" keyProperty="id">

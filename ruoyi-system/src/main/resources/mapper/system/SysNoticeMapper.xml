@@ -47,6 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectNoticeVo"/>
         where notice_type = #{noticeType}
         AND publish_status = #{publishStatus}
+        order by update_time LIMIT 3
     </select>
 
     <select id="selectNoticeList" parameterType="SysNotice" resultMap="SysNoticeResult">

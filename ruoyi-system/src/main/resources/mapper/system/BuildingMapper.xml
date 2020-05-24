@@ -14,36 +14,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="buildStructure"    column="build_structure"    />
         <result property="buildOrientation"    column="build_orientation"    />
         <result property="remake"    column="remake"    />
+        <association property="residentialQuarters" column="cell_id" javaType="ResidentialQuarters" resultMap="ResidentialQuarters" />
     </resultMap>
+        <resultMap id="ResidentialQuarters" type="ResidentialQuarters" >
+            <result property="id"    column="cell_id"    />
+            <result property="cellName"    column="cell_name"    />
+        </resultMap>
 
     <sql id="selectBuildingVo">
-        select id, cell_id, build_name, cell_num, build_level, build_type, build_structure, build_orientation, remake from building
+        select b.id, b.cell_id, b.build_name, b.cell_num, b.build_level, b.build_type, b.build_structure, b.build_orientation, b.remake,
+        r.id as cell_id,r.cell_name
+        from building b
+        left join residential_quarters r on b.cell_id = r.id
     </sql>
 
     <select id="selectBuildingList" parameterType="Building" resultMap="BuildingResult">
         <include refid="selectBuildingVo"/>
         <where>
-            <if test="cellId != null "> and cell_id = #{cellId}</if>
-            <if test="buildName != null and buildName != ''"> and build_name like concat('%', #{buildName}, '%')</if>
-            <if test="cellNum != null "> and cell_num = #{cellNum}</if>
-            <if test="buildLevel != null and buildLevel != ''"> and build_level = #{buildLevel}</if>
-            <if test="buildType != null  and buildType != ''"> and build_type = #{buildType}</if>
-            <if test="buildStructure != null  and buildStructure != ''"> and build_structure = #{buildStructure}</if>
-            <if test="buildOrientation != null  and buildOrientation != ''"> and build_orientation = #{buildOrientation}</if>
-            <if test="remake != null  and remake != ''"> and remake = #{remake}</if>
+            <if test="cellId != null "> and b.cell_id = #{cellId}</if>
+            <if test="buildName != null and buildName != ''"> and b.build_name like concat('%', #{buildName}, '%')</if>
+            <if test="cellNum != null "> and b.cell_num = #{cellNum}</if>
+            <if test="buildLevel != null and buildLevel != ''"> and b.build_level = #{buildLevel}</if>
+            <if test="buildType != null  and buildType != ''"> and b.build_type = #{buildType}</if>
+            <if test="buildStructure != null  and buildStructure != ''"> and b.build_structure = #{buildStructure}</if>
+            <if test="buildOrientation != null  and buildOrientation != ''"> and b.build_orientation = #{buildOrientation}</if>
+            <if test="remake != null  and remake != ''"> and b.remake = #{remake}</if>
         </where>
     </select>
     
     <select id="selectBuildingById" parameterType="Integer" resultMap="BuildingResult">
         <include refid="selectBuildingVo"/>
-        where id = #{id}
+        where b.id = #{id}
     </select>
         
     <insert id="insertBuilding" parameterType="Building" useGeneratedKeys="true" keyProperty="id">
         insert into building
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="cellId != null ">cell_id,</if>
-            <if test="buildName != null and buildName ！= ''">build_name,</if>
+            <if test="buildName != null">build_name,</if>
             <if test="cellNum != null ">cell_num,</if>
             <if test="buildLevel != null and buildLevel != ''">build_level,</if>
             <if test="buildType != null  and buildType != ''">build_type,</if>

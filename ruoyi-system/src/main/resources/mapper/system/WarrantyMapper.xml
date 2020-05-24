@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="status"    column="status"    />
         <result property="createTime"    column="create_time"    />
         <result property="endTime"    column="end_time"    />
+        <result property="feedback"    column="feedback"    />
         <association property="residentialQuarters" column="cell_id" javaType="ResidentialQuarters" resultMap="ResidentialQuarters" />
         <association property="building" column="build_id" javaType="Building" resultMap="Building" />
         <association property="house" column="house_id" javaType="House" resultMap="House" />
@@ -34,12 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap id="House" type="House" >
         <result property="id"    column="unit_id"    />
         <result property="unitNum"    column="unit_num"    />
-        <result property="feedback"    column="feedback"    />
     </resultMap>
 
     <sql id="selectWarrantyVo">
-        select id, cell_id, build_id, house_id, address, tell_phone, Warranty_instructions, remake, status, create_time, end_time,feedback from warranty
-        select w.id, w.cell_id, w.build_id, w.house_id, w.address, w.tell_phone, w.Warranty_instructions, w.remake, w.status, w.create_time, w.end_time,
+        select w.id, w.cell_id, w.build_id, w.house_id, w.address, w.tell_phone, w.Warranty_instructions, w.remake, w.status, w.create_time, w.end_time,w.feedback,
         r.id as cell_id, r.cell_name,b.id as build_id,b.build_name,h.id as unit_id,h.unit_num
         from warranty w
         left join residential_quarters r on w.cell_id = r.id
@@ -66,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectWarrantyVo"/>
         where w.id = #{id}
     </select>
-        
+
     <insert id="insertWarranty" parameterType="Warranty" useGeneratedKeys="true" keyProperty="id">
         insert into warranty
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -80,16 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="status != null  and status != ''">w.status,</if>
             <if test="createTime != null ">w.create_time,</if>
             <if test="endTime != null ">w.end_time,</if>
-            <if test="cellId != null ">cell_id,</if>
-            <if test="buildId != null ">build_id,</if>
-            <if test="houseId != null ">house_id,</if>
-            <if test="address != null  and address != ''">address,</if>
-            <if test="tellPhone != null  and tellPhone != ''">tell_phone,</if>
-            <if test="warrantyInstructions != null  and warrantyInstructions != ''">Warranty_instructions,</if>
-            <if test="remake != null  and remake != ''">remake,</if>
-            status,
-            <if test="createTime != null ">create_time,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="cellId != null ">#{cellId},</if>
             <if test="buildId != null ">#{buildId},</if>
@@ -98,9 +88,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tellPhone != null  and tellPhone != ''">#{tellPhone},</if>
             <if test="warrantyInstructions != null  and warrantyInstructions != ''">#{warrantyInstructions},</if>
             <if test="remake != null  and remake != ''">#{remake},</if>
-            0,
-            sysdate()
-         </trim>
+            <if test="status != null  and status != ''">0,</if>
+            <if test="createTime != null ">sysdate(),</if>
+            <if test="endTime != null ">#{endTime},</if>
+        </trim>
     </insert>
 
     <update id="updateWarranty" parameterType="Warranty">
@@ -115,8 +106,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remake != null  and remake != ''">remake = #{remake},</if>
             status = 1,
             <if test="createTime != null ">create_time = #{createTime},</if>
-            end_time = sysdate(),
-            feedback = #{feedback}
+            <if test="feedback != null ">feedback = #{feedback},</if>
+            end_time = sysdate()
         </trim>
         where id = #{id}
     </update>

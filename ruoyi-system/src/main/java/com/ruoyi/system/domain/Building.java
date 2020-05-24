@@ -50,6 +50,9 @@ public class Building extends BaseEntity
     @Excel(name = "备注")
     private String remake;
 
+//    小区
+    private ResidentialQuarters residentialQuarters;
+
     public void setId(Integer id) 
     {
         this.id = id;
@@ -128,6 +131,14 @@ public class Building extends BaseEntity
     public String getRemake() 
     {
         return remake;
+    }
+
+    public ResidentialQuarters getResidentialQuarters() {
+        return residentialQuarters;
+    }
+
+    public void setResidentialQuarters(ResidentialQuarters residentialQuarters) {
+        this.residentialQuarters = residentialQuarters;
     }
 
     @Override

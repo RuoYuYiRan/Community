@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.NewsMapper">
+    
+    <resultMap type="News" id="NewsResult">
+        <result property="id"    column="id"    />
+        <result property="informer"    column="informer"    />
+        <result property="email"    column="email"    />
+        <result property="message"    column="message"    />
+    </resultMap>
+
+    <sql id="selectNewsVo">
+        select id, informer, email, message from news
+    </sql>
+
+    <select id="selectNewsList" parameterType="News" resultMap="NewsResult">
+        <include refid="selectNewsVo"/>
+        <where>  
+            <if test="informer != null  and informer != ''"> and informer = #{informer}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="message != null  and message != ''"> and message = #{message}</if>
+        </where>
+    </select>
+    
+    <select id="selectNewsById" parameterType="Long" resultMap="NewsResult">
+        <include refid="selectNewsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertNews" parameterType="News">
+        insert into news
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="informer != null  and informer != ''">informer,</if>
+            <if test="email != null  and email != ''">email,</if>
+            <if test="message != null  and message != ''">message,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null ">#{id},</if>
+            <if test="informer != null  and informer != ''">#{informer},</if>
+            <if test="email != null  and email != ''">#{email},</if>
+            <if test="message != null  and message != ''">#{message},</if>
+         </trim>
+    </insert>
+
+    <update id="updateNews" parameterType="News">
+        update news
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="informer != null  and informer != ''">informer = #{informer},</if>
+            <if test="email != null  and email != ''">email = #{email},</if>
+            <if test="message != null  and message != ''">message = #{message},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNewsById" parameterType="Long">
+        delete from news where id = #{id}
+    </delete>
+
+    <delete id="deleteNewsByIds" parameterType="String">
+        delete from news where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

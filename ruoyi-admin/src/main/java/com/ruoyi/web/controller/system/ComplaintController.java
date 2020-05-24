@@ -6,10 +6,7 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.system.domain.Building;
-import com.ruoyi.system.domain.Complaint;
-import com.ruoyi.system.domain.House;
-import com.ruoyi.system.domain.ResidentialQuarters;
+import com.ruoyi.system.domain.*;
 import com.ruoyi.system.service.IBuildingService;
 import com.ruoyi.system.service.IComplaintService;
 import com.ruoyi.system.service.IHouseService;
@@ -22,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -125,28 +123,47 @@ public class ComplaintController extends BaseController {
         return toAjax(complaintService.insertComplaint(complaint));
     }
 
+//    /**
+//     * 修改投诉
+//     */
+//    @GetMapping("/edit/{id}")
+//    public String edit(@PathVariable("id") Integer id, ModelMap mmap)
+//    {
+//        Complaint complaint = complaintService.selectComplaintById(id);
+//        mmap.put("complaint", complaint);
+//        return prefix + "/edit";
+//    }
     /**
      * 修改投诉
      */
-    @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Integer id, ModelMap mmap)
-    {
-        Complaint complaint = complaintService.selectComplaintById(id);
-        mmap.put("complaint", complaint);
-        return prefix + "/edit";
-    }
-
-    /**
-     * 修改投诉
-     */
-    @RequiresPermissions("system:complaint:edit")
-    @Log(title = "投诉", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(Complaint complaint)
+    public String edit(Integer id)
     {
-        return toAjax(complaintService.updateComplaint(complaint));
+        Complaint complaint = complaintService.selectComplaintById(id);
+        String result = "已处理";
+        //判断
+        if("0".equals(complaint.getStatus())){
+            complaint.setStatus("1");
+            complaint.setEndTime(new Date());
+            int temp = complaintService.updateComplaint(complaint);
+            if(temp == 0) {
+                result = "处理失败，请联系管理员";
+            }
+        }
+        return result;
     }
+//    /**
+//     * 修改投诉
+//     */
+//    @RequiresPermissions("system:complaint:edit")
+//    @Log(title = "投诉", businessType = BusinessType.UPDATE)
+//    @PostMapping("/edit")
+//    @ResponseBody
+//    public AjaxResult editSave(Complaint complaint)
+//    {
+//        return toAjax(complaintService.updateComplaint(complaint));
+//    }
 
     /**
      * 删除投诉
@@ -170,4 +187,17 @@ public class ComplaintController extends BaseController {
         mmap.put("complaint", complaint);
         return prefix + "/feedback";
     }
+
+    /**
+     * 反馈更新数据
+     * @param complaint
+     * @return
+     */
+    @PostMapping("/feedback")
+    @ResponseBody
+    public AjaxResult editSave(Complaint complaint){
+        return toAjax(complaintService.updateComplaint(complaint));
+    }
+
+
 }

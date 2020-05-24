@@ -12,6 +12,7 @@ import com.ruoyi.system.service.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -157,5 +158,59 @@ public class CommunityController extends BaseController {
         List<Warranty> list = warrantyService.selectWarrantyList(warranty);
         return getDataTable(list);
     }
+
+    /**
+     * 前台投诉信息查询
+     * @return
+     */
+    @GetMapping("/complaint")
+    public ModelAndView complaint(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("system/complaint/select");
+        //查询小区
+        List<ResidentialQuarters> residentialQuartersList = residentialQuartersService.selectCellIdAndCellName();
+        mav.addObject("residentialQuartersList", residentialQuartersList);
+
+        //查询楼宇
+        List<Building> buildingList  = buildingService.selectIdAndBuildName();
+        mav.addObject("buildingList", buildingList);
+        //查询房屋
+        List<House> houseList = houseService.selectIdAndUnitNum();
+        mav.addObject("houseList", houseList);
+        return mav;
+    }
+    /**
+     * 查询投诉列表
+     */
+    @PostMapping("/complaintList")
+    @ResponseBody
+    public TableDataInfo complaintList(Complaint complaint)
+    {
+        startPage();
+        if(complaint == null) {
+            System.out.println("123123");
+        }
+        List<Complaint> complaintList = complaintService.selectComplaintList(complaint);
+        return getDataTable(complaintList);
+    }
+
+    /**
+     * echart测试
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/EcharsShow")
+    @ResponseBody
+    public List<Complaint> findById(Model model,Complaint complaint) {
+        List<Complaint> list =  complaintService.selectComplaintList(complaint);
+//        System.err.println(list.toString());
+        return list;
+    }
+    @GetMapping(value = "/Echars.do")
+    public String echarts4(Model model){
+        System.err.println("========开始");
+        return "main";
+    }
+
 
 }
