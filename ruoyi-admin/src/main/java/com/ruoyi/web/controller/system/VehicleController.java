@@ -1,6 +1,11 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.Building;
+import com.ruoyi.system.domain.House;
+import com.ruoyi.system.domain.ResidentialQuarters;
+import com.ruoyi.system.service.IResidentialQuartersService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +23,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 车辆管理Controller
@@ -33,6 +39,10 @@ public class VehicleController extends BaseController
 
     @Autowired
     private IVehicleService vehicleService;
+
+    //小区
+    @Autowired
+    private IResidentialQuartersService residentialQuartersService;
 
     @RequiresPermissions("system:vehicle:view")
     @GetMapping()
@@ -72,9 +82,15 @@ public class VehicleController extends BaseController
      * 新增车辆管理
      */
     @GetMapping("/add")
-    public String add()
+    public ModelAndView add()
     {
-        return prefix + "/add";
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName( prefix + "/add");
+        //小区
+        List<ResidentialQuarters> cells = residentialQuartersService.selectCellIdAndCellName();
+        mav.addObject("cells",cells);
+        //返回mav对象
+        return mav;
     }
 
     /**

@@ -54,6 +54,8 @@ public class Vehicle extends BaseEntity
     @Excel(name = "用户编号")
     private Integer userId;
 
+     private ResidentialQuarters residentialQuarters;//小区
+
     public void setId(Integer id) 
     {
         this.id = id;
@@ -143,6 +145,14 @@ public class Vehicle extends BaseEntity
     public Integer getUserId() 
     {
         return userId;
+    }
+
+    public ResidentialQuarters getResidentialQuarters() {
+        return residentialQuarters;
+    }
+
+    public void setResidentialQuarters(ResidentialQuarters residentialQuarters) {
+        this.residentialQuarters = residentialQuarters;
     }
 
     @Override

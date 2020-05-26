@@ -61,4 +61,6 @@ public interface ComplaintMapper {
      * @return 结果
      */
     public int deleteComplaintByIds(String[] ids);
+
+
 }

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--360浏览器优先以webkit内核解析-->
-    <title>控制台</title>
+    <title>数据统计</title>
     <link rel="shortcut icon" href="favicon.ico">
     <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
@@ -17,17 +17,15 @@
     <div class="wrapper wrapper-content">
         <div class="row">
             <div class="col-sm-4">
-                <div id="main" style="width: 600px;height:400px;"></div>
-
+                <div id="complaint" style="width: 300px;height:400px;"></div>
             </div>
             <div class="col-sm-4">
-                        <div id="ech" style="width: 600px;height:400px;"></div>
-                    </div>
-
+                <div id="warranty" style="width: 300px;height:400px;"></div>
+            </div>
+            <div class="col-sm-4">
+                <div id="ech" style="width: 450px;height:400px;"></div>
+            </div>
                 </div>
-            </div>
-            <div class="col-sm-4">
-
             </div>
         </div>
     </div>
@@ -51,9 +49,12 @@
 	    });
     </script>
     <script type="text/javascript">
+        /**
+         * 投诉状态统计
+         */
         $(document).ready(function(){
             // 基于准备好的dom，初始化echarts实例
-            var myChart = echarts.init(document.getElementById('main'));
+            var myChart = echarts.init(document.getElementById('complaint'));
             //数据加载完之前先显示一段简单的loading动画
             myChart.showLoading();
             var names=[];    //横坐标数组（实际用来盛放X轴坐标值）
@@ -61,16 +62,21 @@
             $.ajax({
                 type : "post",
                 async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-                url : "/community/EcharsShow",    //请求发送到dataActiont处
+                url : "/system/status/EcharsShow",    //请求发送到dataActiont处
                 data : {},
                 dataType : "json",        //返回数据形式为json
                 success : function(data) {
-                    // console.log(data);
+                    console.log(data);
                     //请求成功时执行该函数内容，result即为服务器返回的json对象
                     if (data) {
                         for(var i=0;i<data.length;i++){
-                            names.push(data[i].complaintInstructions);
-                            values.push(data[i].id);
+                            names.push(data[i].status);
+                            values.push(data[i].countsta);
+                            // if(names = '1'){
+                            //     return "已处理";
+                            // }else {
+                            //     return "未处理";
+                            // }
                         }
                         myChart.hideLoading();    //隐藏加载动画
                         myChart.setOption({        //加载数据图表
@@ -80,6 +86,7 @@
                             },
                             xAxis: {
                                 data: names
+
                             },
                             yAxis: {
                                 type: 'value'
@@ -100,52 +107,113 @@
                 }
             });//end ajax
         });
-        $(document).ready(function() {
 
+
+        /**
+         * 报修状态统计
+         */
+        $(document).ready(function(){
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('warranty'));
+            //数据加载完之前先显示一段简单的loading动画
+            myChart.showLoading();
+            var names=[];    //横坐标数组（实际用来盛放X轴坐标值）
+            var values=[];    //纵坐标数组（实际用来盛放Y坐标值）
+            $.ajax({
+                type : "post",
+                async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                url : "/system/warrantyStatus/EcharsShow",    //请求发送到dataActiont处
+                data : {},
+                dataType : "json",        //返回数据形式为json
+                success : function(data) {
+                    console.log(data);
+                    //请求成功时执行该函数内容，result即为服务器返回的json对象
+                    if (data) {
+                        for(var i=0;i<data.length;i++){
+                            names.push(data[i].status);
+                            values.push(data[i].countsta);
+                            // if(names = '1'){
+                            //     return "已处理";
+                            // }else {
+                            //     return "未处理";
+                            // }
+                        }
+                        myChart.hideLoading();    //隐藏加载动画
+                        myChart.setOption({        //加载数据图表
+                            tooltip: {},
+                            legend: {
+                                data:['报修处理状态']
+                            },
+                            xAxis: {
+                                data: names
+
+                            },
+                            yAxis: {
+                                type: 'value'
+                            },
+                            series: [{
+                                // 根据名字对应到相应的系列
+                                name: '报修处理状态',//薪资 series not exists. Legend data should be same with series name or data name.
+                                type: 'bar',
+                                data: values
+                            }]
+                        });
+                    }
+                },
+                error : function(errorMsg) {
+                    //请求失败时执行该函数
+                    alert("图表请求数据失败!");
+                    myChart.hideLoading();
+                }
+            });//end ajax
+        });
+
+        /**
+         * 饼状图展示楼宇单元
+         */
+        $(document).ready(function(){
             // 基于准备好的dom，初始化echarts实例
             var myChart = echarts.init(document.getElementById('ech'));
-            // 指定图表的配置项和数据
-            var names=[];
+            //数据加载完之前先显示一段简单的loading动画
+            myChart.showLoading();
             var values=[];
             //数据加载完之前先显示一段简单的loading动画
             myChart.showLoading();
             $.ajax({
                 type : "post",
-                async : true,      //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-                url : "/community/EcharsShow",  //请求发送到dataActiont处
+                async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                url : "/community/EcharsShow",    //请求发送到dataActiont处
                 data : {},
-                dataType : "json",    //返回数据形式为json
-                success : function(result) {
-                    console.log(result);
+                dataType : "json",        //返回数据形式为json
+                success : function(data) {
+                    console.log(data);
                     //请求成功时执行该函数内容，result即为服务器返回的json对象
-                    if (result) {
-                        for(var i=0;i<result.length;i++){
-                            names.push(result[i].complaintInstructions);
-                            values.push(result[i].id);
+                    if (data) {
+                        for(var i=1;i<data.length;i++){
+                            var test={"value":data[i].cellNum, "name":data[i].buildName};
+                            values.push(test);
+
                         }
-                        myChart.hideLoading();  //隐藏加载动画
+
+                        myChart.hideLoading();    //隐藏加载动画
                         myChart.setOption(
                             {
                                 title: {
-                                    text: '物料运输件数',
-                                    x: 'center'
-                                },
-                                tooltip: {
-                                    trigger: 'item',
-                                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                    text: '楼宇单元数量统计',
+                                    left: 'center'
                                 },
                                 legend: {
                                     orient: 'vertical',
                                     left: 'left',
-                                    data: names
+                                    data: values
                                 },
                                 series: [
                                     {
                                         name: '物料来源',
                                         type: 'pie',
-                                        radius: '55%',
-                                        center: ['50%', '60%'],
-                                        data: values,
+                                        radius: '60%',
+                                        center: ['50%', '50%'],
+                                        data:values,
                                         itemStyle: {
                                             emphasis: {
                                                 shadowBlur: 10,
@@ -165,7 +233,6 @@
                     myChart.hideLoading();
                 }
             });//end ajax
-
         });//刷新方法结束
 
     </script>

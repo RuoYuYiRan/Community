@@ -60,7 +60,7 @@
             <a class="nav-link page-scroll" href="#blog">通知公告</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link page-scroll" href="#services">社区查询</a>
+            <a class="nav-link page-scroll" href="#services">查询服务</a>
           </li>
           <li class="nav-item">
             <a class="nav-link page-scroll" href="#features">办事指南</a>
@@ -68,13 +68,6 @@
           <li class="nav-item">
             <a class="nav-link page-scroll" href="#portfolios">报修投诉</a>
           </li>
-          <!--              <li class="nav-item">-->
-          <!--                <a class="nav-link page-scroll" href="#pricing">Pricing</a>-->
-          <!--              </li>-->
-          <!--              <li class="nav-item">-->
-          <!--                <a class="nav-link page-scroll" href="#team">Team</a>-->
-          <!--              </li>-->
-
           <li class="nav-item">
             <a class="nav-link page-scroll" href="#contact">联系我</a>
           </li>
@@ -129,9 +122,9 @@
 <section id="services" class="section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">信息 查询</h2>
+      <h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">查询 服务</h2>
       <hr class="lines wow zoomIn" data-wow-delay="0.3s">
-      <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">居民可以通过连接查询相关信息<br> Lorem ipsum dolor sit amet, consectetur.</p>
+      <p class="section-subtitle wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.3s">居民可以对自己想了解的信息查询<br> </p>
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6">
@@ -199,7 +192,7 @@
     <div class="section-header">
       <h2 class="section-title" style="color: #0b0b0b">办事 指南</h2>
       <hr class="lines">
-      <p class="section-subtitle" style="color: #0b0b0b">社区相关服务办事指导 <br> Lorem ipsum dolor sit amet, consectetur.</p>
+      <p class="section-subtitle" style="color: #0b0b0b">社区相关服务办事指导服务 <br></p>
     </div>
     <div class="row" id="businessGuide">
 
@@ -217,7 +210,7 @@
     <div class="section-header">
       <h2 class="section-title">报修 投诉</h2>
       <hr class="lines">
-      <p class="section-subtitle">社区公告设施的保修以及相关投诉<br> Lorem ipsum dolor sit amet, consectetur.</p>
+      <p class="section-subtitle">社区公告设施的保修以及相关投诉<br> </p>
     </div>
     <div class="row" style="width: 100%;">
       <div class="col-md-12">
@@ -242,8 +235,8 @@
       <div class="col-lg-8">
         <div class="video-promo-content text-center">
           <form id="addWarranty">
-            <h2 class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">填写保修单</h2>
-            <p class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">Aliquam vestibulum cursus felis. In iaculis iaculis sapien ac condimentum. Vestibulum congue posuere lacus, id tincidunt nisi porta sit amet. Suspendisse et sapien varius, pellentesque dui non, semper orci.</p>
+            <h2 class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">填写报修单</h2>
+            <p class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms"></p>
             <p>
               <select name="cellId" style="width: 100%;height:45px;outline: none;border: 1px solid #F1F1F1;background-color: #61D2B4;color: white;">
                 <option value="">请选择小区</option>
@@ -284,8 +277,8 @@
         <div class="video-promo-content text-center">
           <form id="addComplaint">
             <h2 class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">填写投诉表</h2>
-            <p class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">Aliquam vestibulum cursus felis. In iaculis iaculis sapien ac condimentum. Vestibulum congue posuere lacus, id tincidunt nisi porta sit amet. Suspendisse et sapien varius, pellentesque dui non, semper orci.</p>
-            <p>
+<!--            <p class="wow zoomIn" data-wow-duration="1000ms" data-wow-delay="100ms">Aliquam vestibulum cursus felis. In iaculis iaculis sapien ac condimentum. Vestibulum congue posuere lacus, id tincidunt nisi porta sit amet. Suspendisse et sapien varius, pellentesque dui non, semper orci.</p>-->
+<!--            <p>-->
               <select name="cellId" style="width: 100%;height:45px;outline: none;border: 1px solid #F1F1F1;background-color: #61D2B4;color: white;" required>
                 <option value="">请选择小区</option>
                 <option th:each="residentialQuarters : ${residentialQuartersList}" th:value="${residentialQuarters.id}" th:text="${residentialQuarters.cellName}"></option>
@@ -610,16 +603,16 @@
                 '              </div>\n' +
                 '              <div  class="blog-item-text">\n' +
                 '                <div class="meta-tags">\n' +
-                '                  <span class="date" name="createTime"><i class="lnr  lnr-clock">'+v.createDate+'</i></span>\n' +
+                // '                  <span class="date" name="createTime"><i class="lnr  lnr-clock">'+v.createDate+'</i></span>\n' +
                 '                </div>\n' +
                     '                <div class="meta-tags">\n' +
-                    '                  <span class="date" name="createTime"><i class="lnr  lnr-phone-handset">'+v.phone+'</i></span>\n' +
+                    '                  <span class="date" name="createTime"><i class="lnr  lnr-phone-handset">联系电话：'+v.phone+'</i></span>\n' +
                     '                </div>\n' +
                     '                <div class="meta-tags">\n' +
-                    '                  <span class="date" name="content"><i class="lnr  lnr-database">'+v.content+'</i></span>\n' +
+                    '                  <span class="date" name="content"><i class="lnr  lnr-text-align-center">办事内容：'+v.content+'</i></span>\n' +
                     '                </div>\n' +
                     '                <div class="meta-tags">\n' +
-                    '                  <span class="date" name="address"><i class="lnr  lnr-apartment">'+v.address+'</i></span>\n' +
+                    '                  <span class="date" name="address"><i class="lnr  lnr-apartment">办事地址：'+v.address+'</i></span>\n' +
                     '                </div>\n' +
                 '              </div>\n' +
                 '            </div></div>';
@@ -677,9 +670,11 @@
     $.ajax({
       type: "POST",//方法类型
       dataType: "json",//预期服务器返回的数据类型
-      url: "/community/addWarranty" ,//url
+      url: "/community/addWarranty" ,//url提交地址
+      async: false,
       data: $('#addWarranty').serialize(),
       success: function (result) {
+        console.log(result);
         alert("提交成功！")
       }
     });
@@ -695,6 +690,7 @@
       type: "POST",//方法类型
       dataType: "json",//预期服务器返回的数据类型
       url: "/community/addComplaint" ,//url
+      async:false,
       data: $('#addComplaint').serialize(),
       success: function (result) {
         alert("提交成功！")
@@ -715,6 +711,7 @@
     type: "POST",//方法类型
     dataType: "json",//预期服务器返回的数据类型
     url: "/system/news/add" ,//url
+    asyn:false,
     data: $('#contactForm').serialize(),
     success: function (result) {
       console.log(result);

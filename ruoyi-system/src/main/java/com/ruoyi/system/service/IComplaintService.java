@@ -57,4 +57,5 @@ public interface IComplaintService {
      * @return 结果
      */
     public int deleteComplaintById(Integer id);
+
 }

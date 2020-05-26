@@ -15,24 +15,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="carNum"    column="car_num"    />
         <result property="vehicleDisplacement"    column="vehicle_displacement"    />
         <result property="userId"    column="user_id"    />
+        <association property="residentialQuarters" column="cell_id" javaType="ResidentialQuarters" resultMap="ResidentialQuarters" />
+    </resultMap>
+    <resultMap id="ResidentialQuarters" type="ResidentialQuarters" >
+        <result property="id"    column="cell_id"    />
+        <result property="cellName"    column="cell_name"    />
     </resultMap>
 
+
     <sql id="selectVehicleVo">
-        select id, cell_id, vehicle_num, parking_num, parking_card_num, vehicle_owner, tell_phone, car_num, vehicle_displacement, user_id from vehicle
+        select v.id, v.cell_id, v.vehicle_num, v.parking_num, v.parking_card_num, v.vehicle_owner, v.tell_phone, v.car_num, v.vehicle_displacement, v.user_id,
+         r.id as cell_id,r.cell_name
+         from vehicle v
+          left join residential_quarters r on v.cell_id = r.id
     </sql>
 
     <select id="selectVehicleList" parameterType="Vehicle" resultMap="VehicleResult">
         <include refid="selectVehicleVo"/>
         <where>  
-            <if test="cellId != null "> and cell_id = #{cellId}</if>
-            <if test="vehicleNum != null "> and vehicle_num = #{vehicleNum}</if>
-            <if test="parkingNum != null  and parkingNum != ''"> and parking_num = #{parkingNum}</if>
-            <if test="parkingCardNum != null  and parkingCardNum != ''"> and parking_card_num = #{parkingCardNum}</if>
-            <if test="vehicleOwner != null  and vehicleOwner != ''"> and vehicle_owner = #{vehicleOwner}</if>
-            <if test="tellPhone != null  and tellPhone != ''"> and tell_phone = #{tellPhone}</if>
-            <if test="carNum != null  and carNum != ''"> and car_num = #{carNum}</if>
-            <if test="vehicleDisplacement != null  and vehicleDisplacement != ''"> and vehicle_displacement = #{vehicleDisplacement}</if>
-            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="cellId != null "> and v.cell_id = #{cellId}</if>
+            <if test="vehicleNum != null "> and v.vehicle_num = #{vehicleNum}</if>
+            <if test="parkingNum != null  and parkingNum != ''"> and v.parking_num = #{parkingNum}</if>
+            <if test="parkingCardNum != null  and parkingCardNum != ''"> and v.parking_card_num = #{parkingCardNum}</if>
+            <if test="vehicleOwner != null  and vehicleOwner != ''"> and v.vehicle_owner = #{vehicleOwner}</if>
+            <if test="tellPhone != null  and tellPhone != ''"> and v.tell_phone = #{tellPhone}</if>
+            <if test="carNum != null  and carNum != ''"> and v.car_num = #{carNum}</if>
+            <if test="vehicleDisplacement != null  and vehicleDisplacement != ''"> and v.vehicle_displacement = #{vehicleDisplacement}</if>
+            <if test="userId != null "> and v.user_id = #{userId}</if>
         </where>
     </select>
     

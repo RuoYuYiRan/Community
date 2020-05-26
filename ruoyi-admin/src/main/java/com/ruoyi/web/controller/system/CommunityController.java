@@ -194,23 +194,18 @@ public class CommunityController extends BaseController {
         return getDataTable(complaintList);
     }
 
+
     /**
-     * echart测试
+     * 楼宇下的单元数据统计
      * @param model
      * @return
      */
     @RequestMapping(value = "/EcharsShow")
     @ResponseBody
-    public List<Complaint> findById(Model model,Complaint complaint) {
-        List<Complaint> list =  complaintService.selectComplaintList(complaint);
-//        System.err.println(list.toString());
+    public List<Building> findComplaintStatus(Building building) {
+        List<Building> list = buildingService.selectBuildingList(building);
+        System.err.println(list.toString());
         return list;
     }
-    @GetMapping(value = "/Echars.do")
-    public String echarts4(Model model){
-        System.err.println("========开始");
-        return "main";
-    }
-
 
 }

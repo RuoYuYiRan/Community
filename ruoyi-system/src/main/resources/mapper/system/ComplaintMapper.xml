@@ -121,5 +121,6 @@
             #{id}
         </foreach>
     </delete>
+    
 
 </mapper>

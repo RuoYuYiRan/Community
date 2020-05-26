@@ -8,76 +8,79 @@
         <form class="form-horizontal m" id="form-house-edit" th:object="${house}">
             <input name="id" th:field="*{id}" type="hidden">
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">小区：</label>
                 <div class="col-sm-8">
-                    <input name="cellId" th:field="*{cellId}" class="form-control" type="text">
+                    <input name="cellId" th:field="*{cellId}" class="form-control" type="text" readonly="true">
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">楼宇：</label>
                 <div class="col-sm-8">
-                    <input name="buildId" th:field="*{buildId}" class="form-control" type="text">
+                    <input name="buildId" th:field="*{buildId}" class="form-control" type="text" readonly="true">
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">单元：</label>
                 <div class="col-sm-8">
                     <input name="unitNum" th:field="*{unitNum}" class="form-control" type="text">
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">楼层：</label>
                 <div class="col-sm-8">
                     <input name="floor" th:field="*{floor}" class="form-control" type="text">
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">门牌号：</label>
                 <div class="col-sm-8">
                     <input name="roomNum" th:field="*{roomNum}" class="form-control" type="text">
                 </div>
             </div>
+<!--            <div class="form-group">    -->
+<!--                <label class="col-sm-3 control-label">null：</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <input name="floorArea" th:field="*{floorArea}" class="form-control" type="text">-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
-                <div class="col-sm-8">
-                    <input name="floorArea" th:field="*{floorArea}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">房屋面积：</label>
                 <div class="col-sm-8">
                     <input name="houseArea" th:field="*{houseArea}" class="form-control" type="text">
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">统筹面积：</label>
                 <div class="col-sm-8">
                     <input name="poolArea" th:field="*{poolArea}" class="form-control" type="text">
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">住宅类型：</label>
                 <div class="col-sm-8">
                     <select name="roomType" class="form-control m-b">
-                        <option value="">所有</option>
+                        <option value="">[[*{roomType}]]</option>
+                        <option value="高档住宅">高档住宅</option>
+                        <option value="普通住宅">普通住宅</option>
+                        <option value="公寓式住宅">公寓式住宅</option>
+                        <option value="别墅">别墅</option>
                     </select>
-                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">卧室：</label>
                 <div class="col-sm-8">
                     <input name="houseRoom" th:field="*{houseRoom}" class="form-control" type="text">
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">书房：</label>
                 <div class="col-sm-8">
                     <input name="houseOffice" th:field="*{houseOffice}" class="form-control" type="text">
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">null：</label>
+                <label class="col-sm-3 control-label">浴室：</label>
                 <div class="col-sm-8">
                     <input name="houseBathroom" th:field="*{houseBathroom}" class="form-control" type="text">
                 </div>

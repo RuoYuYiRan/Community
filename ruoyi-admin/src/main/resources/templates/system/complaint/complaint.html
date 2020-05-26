@@ -110,10 +110,13 @@
                         field : 'building.buildName',
                         title : '楼宇'
                  },
-                {
-                    field : 'houseId', 
-                    title : '房屋id'
-                },
+                    {
+                        field : 'house.unitNum',
+                        title : '房屋单元',
+                        formatter: function(value, row, index) {
+                            return value+"单元";
+                        }
+                    },
                 {
                     field : 'address', 
                     title : '详细地址'

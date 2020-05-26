@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.WarrantyStatusMapper">
+    
+    <resultMap type="WarrantyStatus" id="WarrantyStatusResult">
+        <result property="countsta"    column="countsta"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectWarrantyStatusVo">
+        SELECT countsta,case when status ='0' then '未处理' else '已处理' end status from warranty_status
+    </sql>
+
+    <select id="selectWarrantyStatusList" parameterType="WarrantyStatus" resultMap="WarrantyStatusResult">
+        <include refid="selectWarrantyStatusVo"/>
+        <where>  
+            <if test="countsta != null "> and countsta = #{countsta}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectWarrantyStatusById" parameterType="Long" resultMap="WarrantyStatusResult">
+        <include refid="selectWarrantyStatusVo"/>
+        where countsta = #{countsta}
+    </select>
+        
+    <insert id="insertWarrantyStatus" parameterType="WarrantyStatus">
+        insert into warranty_status
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="countsta != null ">countsta,</if>
+            <if test="status != null  and status != ''">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="countsta != null ">#{countsta},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWarrantyStatus" parameterType="WarrantyStatus">
+        update warranty_status
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="status != null  and status != ''">status = #{status},</if>
+        </trim>
+        where countsta = #{countsta}
+    </update>
+
+    <delete id="deleteWarrantyStatusById" parameterType="Long">
+        delete from warranty_status where countsta = #{countsta}
+    </delete>
+
+    <delete id="deleteWarrantyStatusByIds" parameterType="String">
+        delete from warranty_status where countsta in 
+        <foreach item="countsta" collection="array" open="(" separator="," close=")">
+            #{countsta}
+        </foreach>
+    </delete>
+    
+</mapper>
