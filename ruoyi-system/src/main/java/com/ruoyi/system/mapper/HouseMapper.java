@@ -2,6 +2,7 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 import com.ruoyi.system.domain.House;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 房屋管理Mapper接口
@@ -64,4 +65,14 @@ public interface HouseMapper
      * @return
      */
     public List<House> selectIdAndUnitNum();
+
+    /**
+     * 根据信息验证
+     * @param phoneNum
+     * @param unitNum
+     * @param buildId
+     * @param cellId
+     * @return
+     */
+    public int queryHouseByInfo(@Param("phoneNum") String phoneNum, @Param("unitNum")Integer unitNum, @Param("buildId")Integer buildId, @Param("cellId")Integer cellId);
 }

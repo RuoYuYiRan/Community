@@ -125,4 +125,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectIdAndUnitNum" parameterType="House" resultMap="HouseResult">
         select id, unit_num from house
     </select>
+
+    <select id="queryHouseByInfo" resultType="Integer">
+        select count(u.user_id) from sys_user u,house h
+        where u.phonenumber = #{phoneNum} and h.unit_num=#{unitNum} and h.build_id =#{buildId} and h.cell_id=#{cellId}
+    </select>
 </mapper>
