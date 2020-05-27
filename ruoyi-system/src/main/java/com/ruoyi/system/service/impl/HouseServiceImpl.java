@@ -101,4 +101,9 @@ public class HouseServiceImpl implements IHouseService
         return houseMapper.selectIdAndUnitNum();
     }
 
+    @Override
+    public int queryHouseByInfo(String phoneNum, Integer unitNum, Integer buildId, Integer cellId) {
+        return houseMapper.queryHouseByInfo(phoneNum,unitNum,buildId,cellId);
+    }
+
 }

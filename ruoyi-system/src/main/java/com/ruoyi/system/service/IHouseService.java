@@ -2,6 +2,7 @@ package com.ruoyi.system.service;
 
 import java.util.List;
 import com.ruoyi.system.domain.House;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 房屋管理Service接口
@@ -64,4 +65,15 @@ public interface IHouseService
      * @return
      */
     public List<House> selectIdAndUnitNum();
+
+    /**
+     * 根据信息验证
+     * @param phoneNum
+     * @param unitNum
+     * @param buildId
+     * @param cellId
+     * @return
+     */
+    public int queryHouseByInfo(String phoneNum, Integer unitNum, Integer buildId, Integer cellId);
+
 }

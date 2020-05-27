@@ -96,10 +96,21 @@ public class CommunityController extends BaseController {
     @ResponseBody
     public String addWarranty(Warranty warranty)
     {
-        warranty.setCreateTime(new Date());
-        warranty.setStatus("0");
-        int i = warrantyService.insertWarranty(warranty);
-        return "success";
+        String result = "成功！！！";
+        //判断是否有该居民
+        int temp = houseService.queryHouseByInfo(warranty.getTellPhone(),warranty.getHouseId(),warranty.getBuildId(),warranty.getCellId());
+        if(temp==1) {
+            warranty.setCreateTime(new Date());
+            warranty.setStatus("0");
+            int i = warrantyService.insertWarranty(warranty);
+            if(i==0) {
+                result="添加失败，请联系管理员";
+            }
+        }else {
+            result="社区没有该居民，请核实填写信息或联系管理员";
+        }
+
+        return result;
     }
 
     /**
@@ -110,10 +121,21 @@ public class CommunityController extends BaseController {
     @ResponseBody
     public String addComplaint(Complaint complaint)
     {
-        complaint.setCreateTime(new Date());
-        complaint.setStatus("0");
-        int i = complaintService.insertComplaint(complaint);
-        return "success";
+        String result = "成功！！！";
+        //判断是否有该居民
+        int temp = houseService.queryHouseByInfo(complaint.getTellPhone(),complaint.getHouseId(),complaint.getBuildId(),complaint.getCellId());
+        if(temp==1) {
+            complaint.setCreateTime(new Date());
+            complaint.setStatus("0");
+            int i = complaintService.insertComplaint(complaint);
+            if(i==0) {
+                result="添加失败，请联系管理员";
+            }
+        }else {
+            result="社区没有该居民，请核实填写信息或联系管理员";
+        }
+
+        return result;
     }
 
     /**
