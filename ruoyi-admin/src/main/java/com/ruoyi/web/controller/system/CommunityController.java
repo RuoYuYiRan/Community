@@ -197,7 +197,6 @@ public class CommunityController extends BaseController {
 
     /**
      * 楼宇下的单元数据统计
-     * @param model
      * @return
      */
     @RequestMapping(value = "/EcharsShow")
@@ -206,6 +205,13 @@ public class CommunityController extends BaseController {
         List<Building> list = buildingService.selectBuildingList(building);
         System.err.println(list.toString());
         return list;
+    }
+
+    @RequestMapping(value = "/getUnit")
+    @ResponseBody
+    public String getUnit(){
+        List<House> houseList = houseService.selectIdAndUnitNum();
+        return JSON.toJSONString(houseList);
     }
 
 }

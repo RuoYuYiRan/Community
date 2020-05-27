@@ -69,16 +69,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertWarranty" parameterType="Warranty" useGeneratedKeys="true" keyProperty="id">
         insert into warranty
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="cellId != null ">w.cell_id,</if>
-            <if test="buildId != null ">w.build_id,</if>
-            <if test="houseId != null ">w.house_id,</if>
-            <if test="address != null  and address != ''">w.address,</if>
-            <if test="tellPhone != null  and tellPhone != ''">w.tell_phone,</if>
-            <if test="warrantyInstructions != null  and warrantyInstructions != ''">w.Warranty_instructions,</if>
-            <if test="remake != null  and remake != ''">w.remake,</if>
-            <if test="status != null  and status != ''">w.status,</if>
-            <if test="createTime != null ">w.create_time,</if>
-            <if test="endTime != null ">w.end_time,</if>
+            <if test="cellId != null ">cell_id,</if>
+            <if test="buildId != null ">build_id,</if>
+            <if test="houseId != null ">house_id,</if>
+            <if test="address != null  and address != ''">address,</if>
+            <if test="tellPhone != null  and tellPhone != ''">tell_phone,</if>
+            <if test="warrantyInstructions != null  and warrantyInstructions != ''">Warranty_instructions,</if>
+            <if test="remake != null  and remake != ''">remake,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="endTime != null ">end_time,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="cellId != null ">#{cellId},</if>
